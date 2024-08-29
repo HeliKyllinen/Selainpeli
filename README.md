@@ -32,6 +32,32 @@ käyttäjäryhmät.
 Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
 tietoa ja keskittyä siihen.
 
+#### Admin
+
+- On vastuussa pelisivuston hallinnasta ja ylläpidosta
+- Tarvittavat toiminnot:
+    - hallinnoi käyttäjiä
+        - luonti
+        - päivitys
+        - poisto
+    - päivittää sivuston asetuksia
+
+#### Kehittäjä
+
+- Kehittää pelejä pelisivustolle
+- Tarvittavat toiminnot:
+    - pelin lisäys sivustolle
+    - pelin päivitys tai poisto
+
+#### Käyttäjä
+
+- Pelaa pelejä pelisivustolla
+- Tarvittavat toiminnot:
+    - sivustolle kirjautuminen
+    - pelien selaaminen
+    - pelin pelaaminen
+    - seuraa omia suorituksia ja saavutuksia
+
 ## Käyttöliittymä
 
 Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
