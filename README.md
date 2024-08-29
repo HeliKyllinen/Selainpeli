@@ -4,14 +4,17 @@ Tiimi: Jenna Räihä, Sakari Arasola, Heli Kyllinen
 
 ## Johdanto
 
-Teemme pelisivuston, missä voi mm. pelata tekoälyllä luotuja palapelejä. Pelit on tarkoitettu kaikille peleistä kiinnostuneille.
+Teemme pelisivuston, missä käyttäjä voi mm. koota palapelejä lisätyssä todellisuudessa käyttäen tekoälyn luomia kuvia. Pelit on tarkoitettu kaikille peleistä kiinnostuneille.
 
--   Järjestelmän tarkoitus ja tiivis kuvaus siitä, mistä on kyse ja kenelle järjestelmä on tarkoitettu.
+Järjestelmän tarkoitus ja tiivis kuvaus siitä, mistä on kyse ja kenelle järjestelmä on tarkoitettu.
+
 -   Toteutus- ja toimintaympäristö lyhyesti:  
-    - html 5
-    - javascript
-    - AR
+    - HTML5
+    - JavaScript
+    - OpenAI API (DALL-E)
+    - AR (A-Frame, AR.js)
     - MariaDB
+      
 -   Käyttöliittymäratkaisut ja teknologiat:
     - nettisivut
 
