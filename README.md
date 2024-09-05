@@ -4,19 +4,9 @@ Tiimi: Jenna Räihä, Sakari Arasola, Heli Kyllinen
 
 ## Johdanto
 
-Teemme pelisivuston, missä käyttäjä voi mm. koota palapelejä lisätyssä todellisuudessa käyttäen tekoälyn luomia kuvia. Pelit on tarkoitettu kaikille peleistä kiinnostuneille.
+Teemme pelisivuston, missä käyttäjä voi muun muassa koota palapelejä lisätyssä todellisuudessa käyttäen tekoälyn luomia kuvia. Pelit on tarkoitettu kaikille peleistä kiinnostuneille ja erityisesti niille, jotka etsivät viihdettä täyttääkseen tylsät ajankohdat arjessaan. Projektin edetessä tarkoituksemme on luoda pelisivusto, joka sisältää monenlaisia pelejä palapelistä tasohyppelyyn, mutta aloitamme sivuston kunnianhimoisesti luomalla palapelin, joka hyödyntää tekoälyä ja AR-teknologiaa samanaikaisesti. 
 
-Järjestelmän tarkoitus ja tiivis kuvaus siitä, mistä on kyse ja kenelle järjestelmä on tarkoitettu.
-
--   Toteutus- ja toimintaympäristö lyhyesti:  
-    - HTML5
-    - JavaScript
-    - OpenAI API (DALL-E)
-    - AR (A-Frame, AR.js)
-    - MariaDB
-      
--   Käyttöliittymäratkaisut ja teknologiat:
-    - nettisivut
+Sovellus on toteutettu käyttäen Spring Bootia, joka vastaa palvelinpuolen logiikasta ja REST-rajapintojen tarjoamisesta. Sovellus käyttää relaatiotietokantaa, kuten MariaDB:tä pelien, käyttäjien ja sessiotietojen tallentamiseen. Lisäksi sovelluksessa hyödynnetään ulkoisia tekoälypalveluja, kuten DALL·E:tä luomaan käyttäjän syötteen perusteella palapelin kuvat. Käyttöliittymä on selainpohjainen ja toteutettu HTML, CSS ja JavaScriptin avulla. Lisätyn todellisuuden (AR) ominaisuudet toteutetaan käyttämällä WebXR APIa tai AR.js-kirjastoa, mikä mahdollistaa AR-kokemuksen suoraan selaimessa ilman lisäohjelmistoja.
 
 ## Järjestelmän määrittely
 
