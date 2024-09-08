@@ -58,7 +58,7 @@ tietoa ja keskittyä siihen.
 - Admin-näkymä
 
 ### Aloitusnäkymä
-![Aloitusnäkymä](https://github.com/user-attachments/assets/ea1a31be-70ce-4dd4-a780-74c744ba11e3)
+![Aloitusnäkymä](https://github.com/user-attachments/assets/ceb3bba4-12a6-4b1a-92e7-031419e696cf)
 
 ### LISÄÄ NÄKYMIÄ TULOSSA!
 
