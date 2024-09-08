@@ -60,6 +60,7 @@ tietoa ja keskittyä siihen.
 ### Aloitusnäkymä
 ![image](https://github.com/user-attachments/assets/82566ab8-9cb8-4113-a82c-1d80b9d6db14)
 
+### LISÄÄ NÄKYMIÄ TULOSSA!
 
 ## Tietokanta
 
