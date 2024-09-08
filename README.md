@@ -50,9 +50,16 @@ tietoa ja keskittyä siihen.
 
 ## Käyttöliittymä
 
-Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
+### Käyttöliittymäkaaviona:
+- Aloitusnäkymä
+- Pelivalikko
+    - Pelinäkymä
+- Käyttäjätili
+- Admin-näkymä
 
-Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.
+### Aloitusnäkymä
+![image](https://github.com/user-attachments/assets/82566ab8-9cb8-4113-a82c-1d80b9d6db14)
+
 
 ## Tietokanta
 
