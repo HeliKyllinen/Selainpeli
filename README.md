@@ -86,11 +86,9 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > C/10 | Teksti/pituus
 > N| Numero
 > DATE | Päivämäärä
-> DATETIME | Päivämäärä ja kellonaika
-> TIME | kellonaika
 
 > ### _User_
-> _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili ja se kuuluu aina vain yhdelle käyttäjälle._
+> _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili.
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
@@ -117,17 +115,57 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > status_id | PK* AN | Statuksen idnumero
 > status| *C/50 | Pelin tila
 
-> ### _Games_
-> _Games-taulu sisältää pelisivustolle luodut pelit. Käyttäjällä voi olla vain yksi tili ja se kuuluu aina vain yhdelle käyttäjälle._
+> ### _Gametypes_
+> _Gametypes-taulu sisältää sivuston erilaiset pelityypit._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> gane_id | PK* AN | Käyttäjän idnumero
+> gameType_id | PK* AN | Pelityypin idnumero
+> gameType_name| *C/50 | Pelityypin nimi
+> description| *C/500 | Kuvaus pelityypistä
+
+> ### _Games_
+> _Games-taulu sisältää pelisivustolle luodut pelit._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> game_id | PK* AN | Pelin idnumero
 > user_id | FK* N | Käyttäjän idnumero, viittaus [User] (#User)-tauluun
 > gameName | *C/150 | Pelin nimi, TÄMÄ TOD NÄK TURHA!
-> email | *C/100 | Käyttäjän sähköpostiosoite
-> role_id | FK *C/30 | Käyttäjän rooli sivustolla, viittaus [Role] (#Role)-tauluun
-> createDate | *DATE | Päivämäärä milloin käyttäjä on luotu
+> gameType_id | FK* N | Pelityypin idnumero, viittaus [Gametypes] (#Gametypes)-tauluun
+> status_id | FK* N | Statuksen idnumero, viittaus [Status] (#Status)-tauluun
+
+> ### _Puzzle_
+> _Puzzle-taulu sisältää sivustolle luodun palapelin tiedot._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> puzzle_id | PK* AN | Palapelin idnumero
+> game_id| FK* N | Pelin idnumero, viittaus [Games] (#Games)-tauluun
+> piece_id| FK* N | Yksittäisen palapelin palan idnumero, viittaus [PuzzlePiece] (#PuzzlePiece)-tauluun
+> image_id| FK* N | Kuvan idnumero, viittaus [AI_image] (#AI_image)-tauluun
+> pieceCount| * N | Palapelin palojen määrä
+> createDate | *DATE | Päivämäärä milloin palapeli on luotu
+
+> ### _PuzzlePiece_
+> _PuzzlePiece-taulu sisältää yksittäisen palapelin palan tiedot._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> piece_id | PK* AN | Palapelin palan idnumero
+> puzzle_id| FK* N | Palapelin idnumero, viittaus [Puzzle] (#Puzzle)-tauluun
+> position_x| * N | Palan vaakasuora sijainti (x-kordinaatti) 
+> position_y| * N | Palan pystysuora sijainti (y-kordinaatti) 
+
+> ### _AI_Image_
+> _AI_Image-taulu sisältää palapeliä varten luodun kuvan tiedot._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> image_id | PK* AN | Luodun kuvan idnumero
+> image_url| * C/550 | Kuvan url-osoite
+> description| *C/500 | Kuvaus millä kuva on luotu
+> createDate | *DATE | Päivämäärä milloin kuva on luotu
 
 ## Tekninen kuvaus
 
