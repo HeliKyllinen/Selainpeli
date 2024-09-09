@@ -72,7 +72,7 @@ Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
 tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
 attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
 
-![Alt text](pelitietokanta1.png)
+![Alt text](pelitietokanta4.png)
 
 > ### _Selitykset_
 > _Tässä on selitykset tietokannan taulujen tyypeille._
@@ -107,33 +107,24 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > role_id | PK* AN | Roolin idnumero
 > role| *C/50 | Roolin nimi
 
-> ### _Status_
-> _Status-taulu tallentaa pelin tilan (esim. kesken, valmis)._
->
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> status_id | PK* AN | Statuksen idnumero
-> status| *C/50 | Pelin tila
-
-> ### _Gametypes_
-> _Gametypes-taulu sisältää sivuston erilaiset pelityypit._
->
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> gameType_id | PK* AN | Pelityypin idnumero
-> gameType_name| *C/50 | Pelityypin nimi
-> description| *C/500 | Kuvaus pelityypistä
-
 > ### _Games_
-> _Games-taulu sisältää pelisivustolle luodut pelit._
+> _Games-taulu sisältää kaikki sivuston eri pelit._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > game_id | PK* AN | Pelin idnumero
+> gameName| *C/50 | Pelin nimi
+> description| *C/500 | Kuvaus pelistä
+
+> ### _GameSession_
+> _GameSession-taulu sisältää pelisession tiedot._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> gameSession_id | PK* AN | Pelisession idnumero
 > user_id | FK* N | Käyttäjän idnumero, viittaus [User](#User)-tauluun
-> gameName | *C/150 | Pelin nimi, TÄMÄ TOD NÄK TURHA!
-> gameType_id | FK* N | Pelityypin idnumero, viittaus [Gametypes](#Gametypes)-tauluun
-> status_id | FK* N | Statuksen idnumero, viittaus [Status](#Status)-tauluun
+> game_id | FK* N | Pelin idnumero, viittaus [Games](#Games)-tauluun
+> status | * C/50 | Pelin status, kesken tai valmis
 
 > ### _Puzzle_
 > _Puzzle-taulu sisältää sivustolle luodun palapelin tiedot._
@@ -141,24 +132,26 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > puzzle_id | PK* AN | Palapelin idnumero
-> game_id| FK* N | Pelin idnumero, viittaus [Games](#Games)-tauluun
-> piece_id| FK* N | Yksittäisen palapelin palan idnumero, viittaus [PuzzlePiece](#PuzzlePiece)-tauluun
-> image_id| FK* N | Kuvan idnumero, viittaus [AI_image](#AI_image)-tauluun
+> gameSession_id| FK* N | Pelisession idnumero, viittaus [GameSession](#GameSession)-tauluun
+> piece_id| FK* N | Yksittäisen palapelin palan idnumero, viittaus [Piece](#Piece)-tauluun
+> image_id| FK* N | Kuvan idnumero, viittaus [Image](#Image)-tauluun
 > pieceCount| * N | Palapelin palojen määrä
 > createDate | *DATE | Päivämäärä milloin palapeli on luotu
 
-> ### _PuzzlePiece_
-> _PuzzlePiece-taulu sisältää yksittäisen palapelin palan tiedot._
+> ### _Piece_
+> _Piece-taulu sisältää yksittäisen palapelin palan tiedot._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > piece_id | PK* AN | Palapelin palan idnumero
 > puzzle_id| FK* N | Palapelin idnumero, viittaus [Puzzle](#Puzzle)-tauluun
 > position_x| * N | Palan vaakasuora sijainti (x-kordinaatti) 
-> position_y| * N | Palan pystysuora sijainti (y-kordinaatti) 
+> position_y| * N | Palan pystysuora sijainti (y-kordinaatti)
+> current_pos_x| * N | Palan tämän hetkinen vaakasuora sijainti (x-kordinaatti) 
+> current_pos_y| * N | Palan tämän hetkinen pystysuora sijainti (y-kordinaatti)
 
-> ### _AI_Image_
-> _AI_Image-taulu sisältää palapeliä varten luodun kuvan tiedot._
+> ### _Image_
+> _Image-taulu sisältää palapeliä varten luodun kuvan tiedot._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
