@@ -74,15 +74,60 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 
 ![Alt text](pelitietokanta1.png)
 
-> ### _Tilit_
-> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
+> ### _Selitykset_
+> _Tässä on selitykset tietokannan taulujen tyypeille._
+>
+>  Tyyppi | Kuvaus
+> ------ | ------ 
+> PK | Pääavain
+> FK |  Viiteavain
+> "*" |  Pakollinen tieto
+> AN | Autonumber/laskuri
+> C/10 | Teksti/pituus
+> N| Numero
+> DATE | Päivämäärä
+> DATETIME | Päivämäärä ja kellonaika
+> TIME | kellonaika
+
+> ### _User_
+> _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili ja se kuuluu aina vain yhdelle käyttäjälle._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
-> id | int PK | Tilin id
-> nimimerkki | varchar(30) |  Tilin nimimerkki
-> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
-> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
+> user_id | PK* AN | Käyttäjän idnumero
+> username | *C/100 | Käyttäjänimi, jota käytetään pelisivustolla
+> password | *C/50 | Salasana, jolla kirjaudutaan pelisivustolle
+> email | *C/100 | Käyttäjän sähköpostiosoite
+> role_id | FK *C/30 | Käyttäjän rooli sivustolla, viittaus [Role] (#Role)-tauluun
+> createDate | *DATE | Päivämäärä milloin käyttäjä on luotu
+
+> ### _Role_
+> _Role-taulu sisältää sivustolla olevat erilaiset käyttäjä-roolit._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> role_id | PK* AN | Roolin idnumero
+> role| *C/50 | Roolin nimi
+
+> ### _Status_
+> _Status-taulu tallentaa pelin tilan (esim. kesken, valmis)._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> status_id | PK* AN | Statuksen idnumero
+> status| *C/50 | Pelin tila
+
+> ### _Games_
+> _Games-taulu sisältää pelisivustolle luodut pelit. Käyttäjällä voi olla vain yksi tili ja se kuuluu aina vain yhdelle käyttäjälle._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> gane_id | PK* AN | Käyttäjän idnumero
+> user_id | FK* N | Käyttäjän idnumero, viittaus [User] (#User)-tauluun
+> gameName | *C/150 | Pelin nimi, TÄMÄ TOD NÄK TURHA!
+> email | *C/100 | Käyttäjän sähköpostiosoite
+> role_id | FK *C/30 | Käyttäjän rooli sivustolla, viittaus [Role] (#Role)-tauluun
+> createDate | *DATE | Päivämäärä milloin käyttäjä on luotu
 
 ## Tekninen kuvaus
 
