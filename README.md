@@ -96,7 +96,7 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > username | *C/100 | Käyttäjänimi, jota käytetään pelisivustolla
 > password | *C/50 | Salasana, jolla kirjaudutaan pelisivustolle
 > email | *C/100 | Käyttäjän sähköpostiosoite
-> role_id | FK *C/30 | Käyttäjän rooli sivustolla, viittaus [Role] (#Role)-tauluun
+> role_id | FK *C/30 | Käyttäjän rooli sivustolla, viittaus [Role](#Role)-tauluun
 > createDate | *DATE | Päivämäärä milloin käyttäjä on luotu
 
 > ### _Role_
@@ -130,10 +130,10 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > game_id | PK* AN | Pelin idnumero
-> user_id | FK* N | Käyttäjän idnumero, viittaus [User] (#User)-tauluun
+> user_id | FK* N | Käyttäjän idnumero, viittaus [User](#User)-tauluun
 > gameName | *C/150 | Pelin nimi, TÄMÄ TOD NÄK TURHA!
-> gameType_id | FK* N | Pelityypin idnumero, viittaus [Gametypes] (#Gametypes)-tauluun
-> status_id | FK* N | Statuksen idnumero, viittaus [Status] (#Status)-tauluun
+> gameType_id | FK* N | Pelityypin idnumero, viittaus [Gametypes](#Gametypes)-tauluun
+> status_id | FK* N | Statuksen idnumero, viittaus [Status](#Status)-tauluun
 
 > ### _Puzzle_
 > _Puzzle-taulu sisältää sivustolle luodun palapelin tiedot._
@@ -141,9 +141,9 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > puzzle_id | PK* AN | Palapelin idnumero
-> game_id| FK* N | Pelin idnumero, viittaus [Games] (#Games)-tauluun
-> piece_id| FK* N | Yksittäisen palapelin palan idnumero, viittaus [PuzzlePiece] (#PuzzlePiece)-tauluun
-> image_id| FK* N | Kuvan idnumero, viittaus [AI_image] (#AI_image)-tauluun
+> game_id| FK* N | Pelin idnumero, viittaus [Games](#Games)-tauluun
+> piece_id| FK* N | Yksittäisen palapelin palan idnumero, viittaus [PuzzlePiece](#PuzzlePiece)-tauluun
+> image_id| FK* N | Kuvan idnumero, viittaus [AI_image](#AI_image)-tauluun
 > pieceCount| * N | Palapelin palojen määrä
 > createDate | *DATE | Päivämäärä milloin palapeli on luotu
 
@@ -153,7 +153,7 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > piece_id | PK* AN | Palapelin palan idnumero
-> puzzle_id| FK* N | Palapelin idnumero, viittaus [Puzzle] (#Puzzle)-tauluun
+> puzzle_id| FK* N | Palapelin idnumero, viittaus [Puzzle](#Puzzle)-tauluun
 > position_x| * N | Palan vaakasuora sijainti (x-kordinaatti) 
 > position_y| * N | Palan pystysuora sijainti (y-kordinaatti) 
 
