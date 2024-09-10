@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -17,7 +19,9 @@ public class User {
 
     private String email;
 
-    /* private Role role; */
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     private LocalDate createDate;
 
@@ -65,6 +69,14 @@ public class User {
         this.email = email;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -76,7 +88,7 @@ public class User {
     @Override
     public String toString() {
         return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", email=" + email
-                + ", createDate=" + createDate + "]";
+                + ", role=" + role + ", createDate=" + createDate + "]";
     }
 
 }
