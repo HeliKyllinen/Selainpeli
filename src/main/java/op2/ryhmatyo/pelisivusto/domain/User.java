@@ -29,8 +29,7 @@ public class User {
 
     }
 
-    public User(Long user_id, String username, String password, String email, LocalDate createDate) {
-        this.user_id = user_id;
+    public User(String username, String password, String email, LocalDate createDate) {
         this.username = username;
         this.password = password;
         this.email = email;

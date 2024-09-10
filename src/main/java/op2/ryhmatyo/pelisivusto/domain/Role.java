@@ -16,7 +16,6 @@ public class Role {
     @Id
     private Long role_id;
 
-    @SuppressWarnings("unused")
     private String role;
 
     @JsonIgnore
@@ -27,8 +26,7 @@ public class Role {
 
     }
 
-    public Role(Long role_id, String role) {
-        this.role_id = role_id;
+    public Role(String role) {
         this.role = role;
     }
 
