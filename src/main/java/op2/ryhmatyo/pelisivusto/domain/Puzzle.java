@@ -1,7 +1,9 @@
 package op2.ryhmatyo.pelisivusto.domain;
 
 import java.time.LocalDate;
+import jakarta.persistence.Entity;
 
+@Entity
 public class Puzzle {
 
     private Long puzzle_id;
