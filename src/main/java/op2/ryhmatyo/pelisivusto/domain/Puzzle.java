@@ -18,15 +18,14 @@ public class Puzzle {
 
     private LocalDate createDate;
 
-    public Puzzle(Long puzzle_id, GameSession gamesession, Piece piece, Image image, int pieceCount, LocalDate createDate) {
-        this.puzzle_id = puzzle_id;
+    public Puzzle(GameSession gamesession, Piece piece, Image image, int pieceCount, LocalDate createDate) {
         this.gamesession = gamesession;
         this.piece = piece;
         this.image = image;
         this.pieceCount = pieceCount;
         this.createDate = createDate;
     }
-    
+
     public Puzzle() {
 
     }
@@ -35,7 +34,7 @@ public class Puzzle {
         return puzzle_id;
     }
 
-    public void setPuzzle_id(Long getPuzzle_id) {
+    public void setPuzzle_id(Long puzzle_id) {
         this.puzzle_id = puzzle_id;
     }
 
@@ -82,13 +81,13 @@ public class Puzzle {
     @Override
     public String toString() {
         return "Puzzle{" +
-            "puzzle_id=" + puzzle_id +
-            ", gamesession=" + gamesession +
-            ", piece=" + piece +
-            ", image=" + image +
-            ", pieceCount=" + pieceCount +
-            ", createDate=" + createDate +
-            '}';
-}
+                "puzzle_id=" + puzzle_id +
+                ", gamesession=" + gamesession +
+                ", piece=" + piece +
+                ", image=" + image +
+                ", pieceCount=" + pieceCount +
+                ", createDate=" + createDate +
+                '}';
+    }
 
 }
