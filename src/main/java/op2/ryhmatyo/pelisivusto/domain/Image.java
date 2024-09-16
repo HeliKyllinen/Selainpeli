@@ -4,25 +4,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_seq")
+    @SequenceGenerator(name = "image_seq", sequenceName = "image_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
-    private String image_path; // Polku tai URL kuvaan.
+    private String imageUrl; // Polku tai URL kuvaan.
 
     @Column
     private String description; // Kuvaus kuvaan liittyen (millä haettu).
 
-    @OneToOne(mappedBy = "image")
-    private Puzzle puzzle; // Yhteys palapeliin, jos kuva liittyy tiettyyn palapeliin.
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    private List<Puzzle> puzzle = new ArrayList<>(); // Yhteys palapeliin, jos kuva liittyy tiettyyn palapeliin.
 
     public Long getId() {
         return id;
@@ -33,11 +41,11 @@ public class Image {
     }
 
     public String getImagePath() {
-        return image_path;
+        return imageUrl;
     }
 
-    public void setImagePath(String image_path) {
-        this.image_path = image_path;
+    public void setImagePath(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {
@@ -48,11 +56,11 @@ public class Image {
         this.description = description;
     }
 
-    public Puzzle getPuzzle() {
+    public List<Puzzle> getPuzzle() {
         return puzzle;
     }
 
-    public void setPuzzle(Puzzle puzzle) {
+    public void setPuzzle(List<Puzzle> puzzle) {
         this.puzzle = puzzle;
     }
 
@@ -60,9 +68,9 @@ public class Image {
     public String toString() {
         return "Image{" +
                 "id=" + id +
-                ", image_path='" + image_path +
+                ", imageUrl='" + imageUrl +
                 ", description='" + description +
-                ", puzzle=" + (puzzle != null ? puzzle.getId() : "null") +
+                ", puzzle=" + (puzzle != null /* ?puzzle.get() : "null" */ ) +
                 '}';
     }
 }

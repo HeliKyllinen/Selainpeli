@@ -6,17 +6,24 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Game {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_seq")
+    @SequenceGenerator(name = "game_seq", sequenceName = "game_seq", allocationSize = 1)
     private Long game_id;
 
-    private String game_name;
+    @Column(name = "game_name")
+    private String gameName;
 
     private String description;
 
@@ -28,8 +35,8 @@ public class Game {
 
     }
 
-    public Game(String game_name, String description) {
-        this.game_name = game_name;
+    public Game(String gameName, String description) {
+        this.gameName = gameName;
         this.description = description;
     }
 
@@ -41,12 +48,12 @@ public class Game {
         this.game_id = game_id;
     }
 
-    public String getGame_name() {
-        return game_name;
+    public String getgameName() {
+        return gameName;
     }
 
-    public void setGame_name(String game_name) {
-        this.game_name = game_name;
+    public void setgameName(String gameName) {
+        this.gameName = gameName;
     }
 
     public String getDescription() {
@@ -67,7 +74,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Game [game_name=" + game_name + ", description=" + description + ", gamesession=" + gamesession + "]";
+        return "Game [gameName=" + gameName + ", description=" + description + ", gamesession=" + gamesession + "]";
     }
 
 }

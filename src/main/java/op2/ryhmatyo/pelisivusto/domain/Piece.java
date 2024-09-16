@@ -6,13 +6,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Piece {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "piece_seq")
+    @SequenceGenerator(name = "piece_seq", sequenceName = "piece_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
@@ -87,7 +89,7 @@ public class Piece {
                 ", position_y=" + position_y +
                 ", cur_position_x=" + cur_position_x +
                 ", cur_position_y=" + cur_position_y +
-                ", puzzle=" + (puzzle != null ? puzzle.getId() : "null") +
+                ", puzzle=" + (puzzle != null ? puzzle.getPuzzle_id() : "null") +
                 '}';
     }
 }
