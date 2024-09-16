@@ -1,12 +1,12 @@
 package op2.ryhmatyo.pelisivusto.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Image {
@@ -23,7 +23,6 @@ public class Image {
 
     @OneToOne(mappedBy = "image")
     private Puzzle puzzle; // Yhteys palapeliin, jos kuva liittyy tiettyyn palapeliin.
-
 
     public Long getId() {
         return id;
