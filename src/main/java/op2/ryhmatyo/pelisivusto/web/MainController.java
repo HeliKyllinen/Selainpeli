@@ -1,12 +1,26 @@
-package op2.ryhmatyo.web;
+package op2.ryhmatyo.pelisivusto.web;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import op2.ryhmatyo.pelisivusto.domain.Image;
+import op2.ryhmatyo.pelisivusto.domain.ImageRepository;
 
 @Controller
 public class MainController {
-    @GetMapping("/")
-    public String home() {
-        return "index"; // Oletetaan, että index.html on templates-kansiossa
+
+    @Autowired
+    private ImageRepository imagerepository;
+
+    @RequestMapping("home")
+    public String home(Model model) {
+        model.addAttribute("image", imagerepository.findAll());
+        return "index";
     }
+
 }

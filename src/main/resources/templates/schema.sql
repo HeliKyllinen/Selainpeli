@@ -131,5 +131,4 @@ SELECT * FROM user;
 SELECT * FROM role;
 SELECT * FROM image;
 SELECT * FROM piece;
-
-SELECT * FROM puzzle WHERE image_id IS NULL;
+-- SELECT * FROM puzzle WHERE image_id IS NULL;
