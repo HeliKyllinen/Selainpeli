@@ -4,24 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palapeli</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        img {
-            max-width: 80%;
-            height: auto;
-            border: 2px solid #333;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </head>
+
 <body>
-    <img src="/yksisarvinen.png" alt="Paikallinen kuva">
+    <h1>Kuvahaku</h1>
+    <div id="searchSection">
+        <input type="text" id="searchQuery" placeholder="Anna hakusana" />
+        <button onclick="searchImage()">Hae kuva</button>
+    </div>
+    <img id="resultImage" alt="Hakutuloksen kuva" style="display: none;">
+
+    <script>
+        async function searchImage() {
+            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf'; // Tähän oma API-key
+            const query = document.getElementById('searchQuery').value.trim();
+            
+            if (query === '') {
+                alert('Syötä hakusana');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo`);
+                const data = await response.json();
+
+                if (data.hits.length > 0) {
+                    const imageUrl = data.hits[0].webformatURL;
+                    const resultImage = document.getElementById('resultImage');
+                    resultImage.src = imageUrl;
+                    resultImage.style.display = 'block';
+                } else {
+                    alert('Hakutuloksia ei löytynyt!');
+                }
+            } catch (error) {
+                console.error('Virhe haettaessa kuvia:', error);
+                alert('Tapahtui virhe haettaessa kuvia.');
+            }
+        }
+    </script>
+
 </body>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
+    #searchSection {
+        margin-bottom: 20px;
+    }
+    img {
+        max-width: 80%;
+        height: auto;
+        border: 2px solid #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
 </html>
