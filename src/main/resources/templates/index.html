@@ -1,22 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fi">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palapeli</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #puzzleContainer {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border: 1px solid #333;
+            overflow: visible;
+        }
+        .puzzlePiece {
+            position: absolute;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+        #searchSection {
+            margin-bottom: 20px;
+        }
+        #completedMessage {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: green;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Kuvahaku</h1>
+    <h1>Palapeli</h1>
     <div id="searchSection">
         <input type="text" id="searchQuery" placeholder="Anna hakusana" />
         <button onclick="searchImage()">Hae kuva</button>
     </div>
-    <img id="resultImage" alt="Hakutuloksen kuva" style="display: none;">
+    <div id="puzzleContainer"></div>
+    <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
 
     <script>
+        const img = new Image();
+        let selectedPiece = null;
+        let offsetX, offsetY;
+        let startTime = null;
+        let timerRunning = false;
+
+        // Kuva pixabaysta
         async function searchImage() {
-            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf'; // Tähän oma API-key
+            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf'; 
             const query = document.getElementById('searchQuery').value.trim();
             
             if (query === '') {
@@ -30,38 +72,183 @@
 
                 if (data.hits.length > 0) {
                     const imageUrl = data.hits[0].webformatURL;
-                    const resultImage = document.getElementById('resultImage');
-                    resultImage.src = imageUrl;
-                    resultImage.style.display = 'block';
+                    img.src = imageUrl;
+                    img.onload = function() {
+                        createPuzzle(imageUrl);
+                    };
                 } else {
-                    alert('Hakutuloksia ei löytynyt!');
+                    alert('Kuvaa ei löytynyt!');
                 }
             } catch (error) {
                 console.error('Virhe haettaessa kuvia:', error);
-                alert('Tapahtui virhe haettaessa kuvia.');
+                alert('Virhe haettaessa kuvia.');
             }
         }
-    </script>
 
+        // Hiiren painikkeen painamisen käsittely
+        function onMouseDown(e) {
+            // Ajastin käyntiin
+            if (!timerRunning) {
+                startTimer();
+                timerRunning = true;
+            }
+
+            selectedPiece = e.target;
+            offsetX = e.clientX - selectedPiece.getBoundingClientRect().left;
+            offsetY = e.clientY - selectedPiece.getBoundingClientRect().top;
+            selectedPiece.style.zIndex = 1000; // Nostaa palan päällimmäiseksi
+        }
+
+        // Hiiren liikuttamisen käsittely
+        function onMouseMove(e) {
+            if (selectedPiece) {
+                let newLeft = e.clientX - offsetX;
+                let newTop = e.clientY - offsetY;
+                const container = document.getElementById('puzzleContainer');
+                const containerRect = container.getBoundingClientRect();
+                const pieceWidth = selectedPiece.offsetWidth;
+                const pieceHeight = selectedPiece.offsetHeight;
+
+                // Palaset eivät voi poistua kontista, jotta ne eivät katoa (muuta myöhemmin niin, että palaset voi "laskea" kontin ulkopuolelle)
+                if (newLeft < containerRect.left) newLeft = containerRect.left;
+                if (newTop < containerRect.top) newTop = containerRect.top;
+                if (newLeft + pieceWidth > containerRect.right) newLeft = containerRect.right - pieceWidth;
+                if (newTop + pieceHeight > containerRect.bottom) newTop = containerRect.bottom - pieceHeight;
+
+                selectedPiece.style.left = newLeft - containerRect.left + 'px';
+                selectedPiece.style.top = newTop - containerRect.top + 'px';
+            }
+        }
+
+        // Hiiren painikkeen vapautuksen käsittely
+        function onMouseUp() {
+            if (selectedPiece) {
+                const targetLeft = parseInt(selectedPiece.style.left);
+                const targetTop = parseInt(selectedPiece.style.top);
+                const correctLeft = parseInt(selectedPiece.dataset.correctLeft);
+                const correctTop = parseInt(selectedPiece.dataset.correctTop);
+
+                // Onko pala oikeassa paikassa?
+                if (Math.abs(targetLeft - correctLeft) < 20 && Math.abs(targetTop - correctTop) < 20) {
+                    // Siirtää palan oikeaan paikkaan
+                    selectedPiece.style.left = correctLeft + 'px';
+                    selectedPiece.style.top = correctTop + 'px';
+                    selectedPiece.style.pointerEvents = 'none'; // Pala ei reagoi enää painalluksiin/siirtoon, kun oikea paikka on löytynyt
+                } else {
+                    // Palautetaan alkuperäiseen paikkaan
+                    selectedPiece.style.left = selectedPiece.dataset.originalLeft;
+                    selectedPiece.style.top = selectedPiece.dataset.originalTop;
+                }
+
+                selectedPiece.style.zIndex = '';
+                selectedPiece = null;
+
+                // Onko peli valmis?
+                checkIfPuzzleCompleted();
+            }
+        }
+
+        // Sekoitetaan palat
+        function shufflePieces(pieces) {
+            for (let i = pieces.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pieces[i].style.left, pieces[j].style.left] = [pieces[j].style.left, pieces[i].style.left];
+                [pieces[i].style.top, pieces[j].style.top] = [pieces[j].style.top, pieces[i].style.top];
+            }
+        }
+
+        // Palapelin luonti
+        function createPuzzle(imageUrl) {
+            const rows = 4; 
+            const cols = 4; 
+            const pieceMargin = 5; 
+            const puzzleContainer = document.getElementById('puzzleContainer');
+            puzzleContainer.innerHTML = ''; 
+            const pieceWidth = (img.width - (cols - 1) * pieceMargin) / cols;
+            const pieceHeight = (img.height - (rows - 1) * pieceMargin) / rows;
+            const pieces = [];
+
+            // Kontti kuvan mittoihin
+            puzzleContainer.style.width = img.width + 'px';
+            puzzleContainer.style.height = img.height + 'px';
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzlePiece';
+                    piece.style.width = pieceWidth + 'px';
+                    piece.style.height = pieceHeight + 'px';
+                    piece.style.backgroundImage = `url(${imageUrl})`;
+                    piece.style.backgroundPosition = `-${col * (pieceWidth + pieceMargin)}px -${row * (pieceHeight + pieceMargin)}px`;
+                    piece.style.left = col * (pieceWidth + pieceMargin) + 'px';
+                    piece.style.top = row * (pieceHeight + pieceMargin) + 'px';
+
+                    // Tallennetaan oikeat paikat
+                    piece.dataset.correctLeft = col * (pieceWidth + pieceMargin) + 'px';
+                    piece.dataset.correctTop = row * (pieceHeight + pieceMargin) + 'px';
+                    piece.dataset.originalLeft = piece.style.left;
+                    piece.dataset.originalTop = piece.style.top;
+
+                    piece.addEventListener('mousedown', onMouseDown);
+                    pieces.push(piece);
+                    puzzleContainer.appendChild(piece);
+                }
+            }
+
+            // Sekoitetaan palaset
+            shufflePieces(pieces);
+
+            // Nollataan ajastin ja näytetään viesti
+            resetTimer();
+            document.getElementById('completedMessage').style.display = 'none';
+        }
+
+        // Palapelin valmistumisen tsekkaus
+        function checkIfPuzzleCompleted() {
+            const pieces = document.querySelectorAll('.puzzlePiece');
+            let isCompleted = true;
+
+            // Tarkistetaan jokaisen palan sijainti
+            pieces.forEach(piece => {
+                const left = parseInt(piece.style.left);
+                const top = parseInt(piece.style.top);
+                const correctLeft = parseInt(piece.dataset.correctLeft);
+                const correctTop = parseInt(piece.dataset.correctTop);
+
+                if (left !== correctLeft || top !== correctTop) {
+                    isCompleted = false;
+                }
+            });
+
+            // Ajastimen pysäytys, jos kaikki palaset ovat oikeilla paikoillaan
+            if (isCompleted) {
+                stopTimer();
+            }
+        }
+
+        // Ajastin käyntiin
+        function startTimer() {
+            startTime = new Date();
+        }
+
+        // Ajastin pois päältä (muunnos sekunneiksi)
+        function stopTimer() {
+            const endTime = new Date();
+            const timeSpent = (endTime - startTime) / 1000;
+            document.getElementById('timeSpent').innerText = `${timeSpent.toFixed(2)} sekuntia`;
+            document.getElementById('completedMessage').style.display = 'block';
+        }
+
+        // Ajastimen resetointi
+        function resetTimer() {
+            startTime = null;
+            timerRunning = false;
+            document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        
+    </script>
 </body>
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-    }
-    #searchSection {
-        margin-bottom: 20px;
-    }
-    img {
-        max-width: 80%;
-        height: auto;
-        border: 2px solid #333;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-</style>
 </html>
