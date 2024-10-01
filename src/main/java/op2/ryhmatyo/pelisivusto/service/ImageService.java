@@ -16,7 +16,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    private final String PIXABAY_API_KEY = "46156034-444f3c2f3ed35bb2b993398bf";
+    private final String PIXABAY_API_KEY = "46156034-444f3c2f3ed35bb2b993398bf"; // Lisää tähän oma API Key
     private final String PIXABAY_URL = "https://pixabay.com/api/";
 
     public Image searchAndSaveImage(String searchQuery) throws Exception {
