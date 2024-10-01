@@ -57,34 +57,31 @@
     <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
 
     <script>
-        const img = new Image();
+        let img = new Image();
         let selectedPiece = null;
         let offsetX, offsetY;
         let startTime = null;
         let timerRunning = false;
 
-        // Kuva pixabaysta
+        // Kuva haetaan backendistä
         async function searchImage() {
-            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf';
             const query = document.getElementById('searchQuery').value.trim();
-
             if (query === '') {
                 alert('Syötä hakusana');
                 return;
             }
 
             try {
-                const response = await fetch(`https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo`);
+                const response = await fetch(`/searchImage?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
 
-                if (data.hits.length > 0) {
-                    const imageUrl = data.hits[0].webformatURL;
-                    img.src = imageUrl;
+                if (data.imageUrl) {
+                    img.src = data.imageUrl;
                     img.onload = function () {
-                        createPuzzle(imageUrl);
+                        createPuzzle(data.imageUrl);
                     };
                 } else {
-                    alert('Kuvaa ei löytynyt!');
+                    alert(data.error || 'Kuvaa ei löytynyt!');
                 }
             } catch (error) {
                 console.error('Virhe haettaessa kuvia:', error);
