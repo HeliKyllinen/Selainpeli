@@ -131,4 +131,8 @@ SELECT * FROM role;
 SELECT * FROM image;
 SELECT * FROM piece;
 
+<<<<<<< HEAD
 SELECT * FROM puzzle WHERE image_id IS NULL;
+=======
+SELECT * FROM puzzle WHERE image_id IS NULL;
+>>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
