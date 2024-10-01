@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +15,11 @@
             margin: 0;
             background-color: #f0f0f0;
         }
+
         h1 {
             margin-bottom: 20px;
         }
+
         #puzzleContainer {
             position: relative;
             width: 400px;
@@ -24,14 +27,17 @@
             border: 1px solid #333;
             overflow: visible;
         }
+
         .puzzlePiece {
             position: absolute;
             border: 1px solid #333;
             cursor: pointer;
         }
+
         #searchSection {
             margin-bottom: 20px;
         }
+
         #completedMessage {
             display: none;
             margin-top: 20px;
@@ -40,6 +46,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Palapeli</h1>
     <div id="searchSection">
@@ -58,9 +65,9 @@
 
         // Kuva pixabaysta
         async function searchImage() {
-            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf'; 
+            const apiKey = '46156034-444f3c2f3ed35bb2b993398bf';
             const query = document.getElementById('searchQuery').value.trim();
-            
+
             if (query === '') {
                 alert('Syötä hakusana');
                 return;
@@ -73,7 +80,7 @@
                 if (data.hits.length > 0) {
                     const imageUrl = data.hits[0].webformatURL;
                     img.src = imageUrl;
-                    img.onload = function() {
+                    img.onload = function () {
                         createPuzzle(imageUrl);
                     };
                 } else {
@@ -129,15 +136,17 @@
                 const correctTop = parseInt(selectedPiece.dataset.correctTop);
 
                 // Onko pala oikeassa paikassa?
-                if (Math.abs(targetLeft - correctLeft) < 20 && Math.abs(targetTop - correctTop) < 20) {
+                if (Math.abs(targetLeft - correctLeft) < 20 && Math.abs(targetTop - correctTop) < 20) { //20 PIKSELIÄ HUONO TARKISTUSMETODI???
                     // Siirtää palan oikeaan paikkaan
                     selectedPiece.style.left = correctLeft + 'px';
                     selectedPiece.style.top = correctTop + 'px';
                     selectedPiece.style.pointerEvents = 'none'; // Pala ei reagoi enää painalluksiin/siirtoon, kun oikea paikka on löytynyt
+                    // LIIKUTA VÄÄRÄ PALA MUUALLE OIKEAN PALAN TILALTA
                 } else {
                     // Palautetaan alkuperäiseen paikkaan
                     selectedPiece.style.left = selectedPiece.dataset.originalLeft;
                     selectedPiece.style.top = selectedPiece.dataset.originalTop;
+                    // JOS OIKEA PALA ON JO TÄSSÄ NIIN SIIRRÄ ALKUPERÄINEN PALA MUUALLE
                 }
 
                 selectedPiece.style.zIndex = '';
@@ -159,11 +168,11 @@
 
         // Palapelin luonti
         function createPuzzle(imageUrl) {
-            const rows = 4; 
-            const cols = 4; 
-            const pieceMargin = 5; 
+            const rows = 4;
+            const cols = 4;
+            const pieceMargin = 5;
             const puzzleContainer = document.getElementById('puzzleContainer');
-            puzzleContainer.innerHTML = ''; 
+            puzzleContainer.innerHTML = '';
             const pieceWidth = (img.width - (cols - 1) * pieceMargin) / cols;
             const pieceHeight = (img.height - (rows - 1) * pieceMargin) / rows;
             const pieces = [];
@@ -248,7 +257,8 @@
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
-        
+
     </script>
 </body>
+
 </html>
