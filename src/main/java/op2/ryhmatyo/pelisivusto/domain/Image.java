@@ -27,11 +27,11 @@ public class Image {
     private String imageUrl; // Polku tai URL kuvaan.
 
     @Column
-    private String description; // Kuvaus kuvaan liittyen (millä haettu).
+    private String searchQuery; // Kuvan hakusana
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
-    private List<Puzzle> puzzle = new ArrayList<>(); // Yhteys palapeliin, jos kuva liittyy tiettyyn palapeliin.
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    // private List<Puzzle> puzzle = new ArrayList<>(); // Yhteys palapeliin, jos kuva liittyy tiettyyn palapeliin.
 
     public Long getImageId() {
         return imageId;
@@ -49,29 +49,29 @@ public class Image {
         this.imageUrl = imageUrl;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSearchQuery() {
+        return searchQuery;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
-    public List<Puzzle> getPuzzle() {
-        return puzzle;
-    }
+    // public List<Puzzle> getPuzzle() {
+    //     return puzzle;
+    //  }
 
-    public void setPuzzle(List<Puzzle> puzzle) {
-        this.puzzle = puzzle;
-    }
+    // public void setPuzzle(List<Puzzle> puzzle) {
+    //    this.puzzle = puzzle;
+    // }
 
     @Override
     public String toString() {
         return "Image{" +
                 "imageId=" + imageId +
                 ", imageUrl='" + imageUrl +
-                ", description='" + description +
-                ", puzzle=" + (puzzle != null /* ?puzzle.get() : "null" */ ) +
+                ", searchQuery='" + searchQuery +
+              //  ", puzzle=" + (puzzle != null /* ?puzzle.get() : "null" */ ) +
                 '}';
     }
 }

@@ -45,8 +45,7 @@ CREATE TABLE user (
 CREATE TABLE image (
     image_id BIGINT NOT NULL AUTO_INCREMENT,
     image_url VARCHAR(550) NOT NULL,
-    description VARCHAR(500) NOT NULL,
-    create_date DATE NOT NULL,
+    search_query VARCHAR(50) NOT NULL,
     PRIMARY KEY (image_id)
 );
 
@@ -112,9 +111,9 @@ INSERT INTO game_session (status, user_id, game_id) VALUES
 ('online', 1, 1),
 ('offline', 2, 2);
 
-INSERT INTO image(image_url, description, create_date) VALUES
-('https://cdn.pixabay.com/photo/2022/11/02/14/47/bird-7565103_960_720.jpg', 'Tarkkaileva lintu', '2022-11-03'),
-('https://cdn.pixabay.com/photo/2024/08/18/14/34/folkstone-8978132_960_720.jpg', 'Veneitä satamassa', '2024-08-20');
+INSERT INTO image(image_url, search_query) VALUES
+('https://cdn.pixabay.com/photo/2022/11/02/14/47/bird-7565103_960_720.jpg', 'Tarkkaileva lintu'),
+('https://cdn.pixabay.com/photo/2024/08/18/14/34/folkstone-8978132_960_720.jpg', 'Veneitä satamassa');
 
 INSERT INTO puzzle (piece_count, create_date, game_session_id, image_id) VALUES
 (36, '2024-09-16', 1, 2),
@@ -131,4 +130,5 @@ SELECT * FROM user;
 SELECT * FROM role;
 SELECT * FROM image;
 SELECT * FROM piece;
--- SELECT * FROM puzzle WHERE image_id IS NULL;
+
+SELECT * FROM puzzle WHERE image_id IS NULL;
