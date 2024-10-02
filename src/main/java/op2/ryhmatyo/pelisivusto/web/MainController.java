@@ -23,4 +23,10 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("headbreaker")
+    public String headbreaker(Model model) {
+        model.addAttribute("image", imagerepository.findAll());
+        return "headbreaker";
+    }
+
 }
