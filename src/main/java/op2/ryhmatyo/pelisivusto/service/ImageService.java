@@ -21,7 +21,7 @@ public class ImageService {
 
     public Image searchAndSaveImage(String searchQuery) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        String url = PIXABAY_URL + "?key=" + pixabayApiKey + "&q=" + searchQuery + "&image_type=photo";
+        String url = PIXABAY_URL + "?key=" + pixabayApiKey + "&q=" + searchQuery + "&image_type=photo&lang=fi&order=random";
 
         String response = restTemplate.getForObject(url, String.class);
         JSONObject jsonResponse = new JSONObject(response);
