@@ -77,13 +77,8 @@
 
 		<dependency>
     		<groupId>org.json</groupId>
-<<<<<<< HEAD
     		<artifactId>json</artifactId>
     		<version>20210307</version> 
-=======
-    			<artifactId>json</artifactId>
-    			<version>20210307</version> 
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
 		</dependency>
 
 	</dependencies>
