@@ -91,10 +91,7 @@
 
         // Hiiren painikkeen painamisen käsittely
         function onMouseDown(e) {
-<<<<<<< HEAD
-=======
             // Ajastin käyntiin
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
             if (!timerRunning) {
                 startTimer();
                 timerRunning = true;
@@ -103,11 +100,7 @@
             selectedPiece = e.target;
             offsetX = e.clientX - selectedPiece.getBoundingClientRect().left;
             offsetY = e.clientY - selectedPiece.getBoundingClientRect().top;
-<<<<<<< HEAD
-            selectedPiece.style.zIndex = 1000;
-=======
             selectedPiece.style.zIndex = 1000; // Nostaa palan päällimmäiseksi
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
         }
 
         // Hiiren liikuttamisen käsittely
@@ -120,10 +113,7 @@
                 const pieceWidth = selectedPiece.offsetWidth;
                 const pieceHeight = selectedPiece.offsetHeight;
 
-<<<<<<< HEAD
-=======
                 // Palaset eivät voi poistua kontista, jotta ne eivät katoa (muuta myöhemmin niin, että palaset voi "laskea" kontin ulkopuolelle)
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
                 if (newLeft < containerRect.left) newLeft = containerRect.left;
                 if (newTop < containerRect.top) newTop = containerRect.top;
                 if (newLeft + pieceWidth > containerRect.right) newLeft = containerRect.right - pieceWidth;
@@ -142,15 +132,6 @@
                 const correctLeft = parseInt(selectedPiece.dataset.correctLeft);
                 const correctTop = parseInt(selectedPiece.dataset.correctTop);
 
-<<<<<<< HEAD
-                if (Math.abs(targetLeft - correctLeft) < 20 && Math.abs(targetTop - correctTop) < 20) {
-                    selectedPiece.style.left = correctLeft + 'px';
-                    selectedPiece.style.top = correctTop + 'px';
-                    selectedPiece.style.pointerEvents = 'none';
-                } else {
-                    selectedPiece.style.left = selectedPiece.dataset.originalLeft;
-                    selectedPiece.style.top = selectedPiece.dataset.originalTop;
-=======
                 // Onko pala oikeassa paikassa?
                 if (Math.abs(targetLeft - correctLeft) < 20 && Math.abs(targetTop - correctTop) < 20) { //20 PIKSELIÄ HUONO TARKISTUSMETODI???
                     // Siirtää palan oikeaan paikkaan
@@ -163,16 +144,13 @@
                     selectedPiece.style.left = selectedPiece.dataset.originalLeft;
                     selectedPiece.style.top = selectedPiece.dataset.originalTop;
                     // JOS OIKEA PALA ON JO TÄSSÄ NIIN SIIRRÄ ALKUPERÄINEN PALA MUUALLE
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
                 }
 
                 selectedPiece.style.zIndex = '';
                 selectedPiece = null;
 
-<<<<<<< HEAD
-=======
+
                 // Onko peli valmis?
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
                 checkIfPuzzleCompleted();
             }
         }
@@ -197,10 +175,7 @@
             const pieceHeight = (img.height - (rows - 1) * pieceMargin) / rows;
             const pieces = [];
 
-<<<<<<< HEAD
-=======
             // Kontti kuvan mittoihin
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
             puzzleContainer.style.width = img.width + 'px';
             puzzleContainer.style.height = img.height + 'px';
 
@@ -215,10 +190,7 @@
                     piece.style.left = col * (pieceWidth + pieceMargin) + 'px';
                     piece.style.top = row * (pieceHeight + pieceMargin) + 'px';
 
-<<<<<<< HEAD
-=======
                     // Tallennetaan oikeat paikat
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
                     piece.dataset.correctLeft = col * (pieceWidth + pieceMargin) + 'px';
                     piece.dataset.correctTop = row * (pieceHeight + pieceMargin) + 'px';
                     piece.dataset.originalLeft = piece.style.left;
@@ -230,14 +202,10 @@
                 }
             }
 
-<<<<<<< HEAD
-            shufflePieces(pieces);
-=======
             // Sekoitetaan palaset
             shufflePieces(pieces);
 
             // Nollataan ajastin ja näytetään viesti
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
             resetTimer();
             document.getElementById('completedMessage').style.display = 'none';
         }
@@ -247,10 +215,7 @@
             const pieces = document.querySelectorAll('.puzzlePiece');
             let isCompleted = true;
 
-<<<<<<< HEAD
-=======
             // Tarkistetaan jokaisen palan sijainti
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
             pieces.forEach(piece => {
                 const left = parseInt(piece.style.left);
                 const top = parseInt(piece.style.top);
@@ -262,10 +227,7 @@
                 }
             });
 
-<<<<<<< HEAD
-=======
             // Ajastimen pysäytys, jos kaikki palaset ovat oikeilla paikoillaan
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
             if (isCompleted) {
                 stopTimer();
             }
@@ -288,11 +250,7 @@
         function resetTimer() {
             startTime = null;
             timerRunning = false;
-<<<<<<< HEAD
-            document.getElementById('completedMessage').style.display = 'none';
-=======
             document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
->>>>>>> 22a71a661a749de1c3b7f8f7049296c2c1c2be7a
         }
 
         document.addEventListener('mousemove', onMouseMove);
@@ -302,7 +260,6 @@
 </body>
 
 </html>
-<<<<<<< HEAD
 
 
 
