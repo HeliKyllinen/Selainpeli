@@ -69,29 +69,50 @@
 
         // Kuva haetaan backendistä
         async function searchImage() {
-            const query = document.getElementById('searchQuery').value.trim();
-            if (query === '') {
-                alert('Syötä hakusana');
-                return;
-            }
+    const query = document.getElementById('searchQuery').value.trim();
+    if (query === '') {
+        alert('Syötä hakusana');
+        return;
+    }
 
-            try {
-                const response = await fetch(`/searchImage?query=${encodeURIComponent(query)}`);
-                const data = await response.json();
+    try {
+        const response = await fetch(`/searchImage?query=${encodeURIComponent(query)}`);
+        const data = await response.json();
 
-                if (data.imageUrl) {
-                    img.src = data.imageUrl;
-                    img.onload = function () {
-                        createPuzzle(data.imageUrl);
-                    };
-                } else {
-                    alert(data.error || 'Kuvaa ei löytynyt!');
-                }
-            } catch (error) {
-                console.error('Virhe haettaessa kuvia:', error);
-                alert('Virhe haettaessa kuvia.');
-            }
+        if (data.imageUrl) {
+            img.src = data.imageUrl;
+
+            // Näyttää ensin kokonaisen kuvan
+            showImageFirst(data.imageUrl);
+        } else {
+            alert(data.error || 'Kuvaa ei löytynyt!');
         }
+    } catch (error) {
+        console.error('Virhe haettaessa kuvia:', error);
+        alert('Virhe haettaessa kuvia.');
+    }
+}
+
+// Näyttää kuvan kokonaisena 3 sekuntia ennen palapelin luomista
+function showImageFirst(imageUrl) {
+    const puzzleContainer = document.getElementById('puzzleContainer');
+    puzzleContainer.innerHTML = ''; // Tyhjentää mahdolliset aiemmat palapelit
+
+    // Luo kuvaelementin, joka näyttää koko kuvan
+    const fullImage = document.createElement('img');
+    fullImage.src = imageUrl;
+    fullImage.style.width = '100%';
+    fullImage.style.height = '100%';
+    fullImage.style.objectFit = 'cover';
+
+    puzzleContainer.appendChild(fullImage);
+
+    // 3 sekuntia ja muodosta palapeli
+    setTimeout(() => {
+        puzzleContainer.removeChild(fullImage); // Poista kokonainen kuva
+        createPuzzle(imageUrl); // Luo palapeli kuvan perusteella
+    }, 3000); // 3 sekunnin viive
+}
 
         // Hiiren painikkeen painamisen käsittely
         function onMouseDown(e) {
