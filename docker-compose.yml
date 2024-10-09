@@ -1,10 +1,26 @@
-version: '3.8'
-
 services:
   mariadb:
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: pelisivusto_db
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     ports:
       - "3306:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/pelisivusto_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
