@@ -29,4 +29,9 @@ public class MainController {
         return "headbreaker";
     }
 
+    @GetMapping("/") // Juuripolku
+    public String index() {
+        return "index";
+    }
+
 }
