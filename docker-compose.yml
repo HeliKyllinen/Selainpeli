@@ -5,10 +5,11 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: pelisivusto_db
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+        test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+        start_period: 10s
+        interval: 10s
+        timeout: 5s
+        retries: 3
     ports:
       - "3306:3306"
 
@@ -19,7 +20,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mariadb
+        mariadb:
+          condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/pelisivusto_db
       SPRING_DATASOURCE_USERNAME: root
