@@ -1,4 +1,4 @@
-package op2.ryhmatyo.pelisivusto;
+/*package op2.ryhmatyo.pelisivusto;
 
 import java.util.Arrays;
 
@@ -24,4 +24,4 @@ public class WebSecurityConfig {
         return source;
     }
 
-}
+}*/
