@@ -8,6 +8,9 @@ import org.json.JSONObject;
 import op2.ryhmatyo.pelisivusto.domain.Image;
 import op2.ryhmatyo.pelisivusto.domain.ImageRepository;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Service
 public class ImageService {
 
@@ -21,7 +24,11 @@ public class ImageService {
 
     public Image searchAndSaveImage(String searchQuery) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        String url = PIXABAY_URL + "?key=" + pixabayApiKey + "&q=" + searchQuery + "&image_type=photo&lang=fi&order=random";
+
+        // URL encoding
+        String encodedQuery = URLEncoder.encode(searchQuery, StandardCharsets.UTF_8.toString());
+
+        String url = PIXABAY_URL + "?key=" + pixabayApiKey + "&q=" + encodedQuery + "&image_type=photo&lang=fi&order=random";
 
         String response = restTemplate.getForObject(url, String.class);
         JSONObject jsonResponse = new JSONObject(response);
