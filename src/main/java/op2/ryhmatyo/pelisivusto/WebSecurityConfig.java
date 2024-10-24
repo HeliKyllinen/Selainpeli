@@ -21,8 +21,9 @@ public class WebSecurityConfig {
             .cors().and()
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers(antMatcher("/css/**")).permitAll()
                 .anyRequest().authenticated())
+            .headers(headers -> headers.frameOptions(frameoptions -> frameoptions.disable()))
             .formLogin() // Käytetään automaattista kirjautumissivua
                 .defaultSuccessUrl("/", true) // Kirjautumisen jälkeen ohjataan etusivulle
                 .permitAll()

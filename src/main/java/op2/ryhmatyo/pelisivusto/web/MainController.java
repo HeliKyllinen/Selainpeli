@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import op2.ryhmatyo.pelisivusto.domain.Image;
 import op2.ryhmatyo.pelisivusto.domain.ImageRepository;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 @Controller
 public class MainController {
 
