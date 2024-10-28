@@ -69,7 +69,6 @@
         let selectedPiece = null;
         let offsetX, offsetY;
         let startTime = null;
-        let timerRunning = false;
 
         // Kuva haetaan backendistä
         async function searchImage() {
@@ -143,9 +142,8 @@
             offsetY = e.clientY - selectedPiece.getBoundingClientRect().top;
 
             // Ajastin käyntiin
-            if (!timerRunning) {
-                startTimer();
-                timerRunning = true;
+            if (!startTime) {
+                startTime = new Date();
             }
         }
 
@@ -280,10 +278,6 @@
             }
         }
 
-        // Ajastin käyntiin
-        function startTimer() {
-            startTime = new Date();
-        }
 
         // Ajastin pois päältä
         function stopTimer() {
@@ -296,7 +290,6 @@
         // Nollaa ajastin
         function resetTimer() {
             startTime = null;
-            timerRunning = false;
             document.getElementById('completedMessage').style.display = 'none';
         }
 
