@@ -17,7 +17,7 @@
         <button onclick="searchImage()">Hae kuva</button>
     </div>
 
-    <div id="my-canvas">
+    <div id="autogen-canvas">
     </div>
 
     <script>
@@ -35,14 +35,20 @@
                 const data = await response.json();
 
                 if (data.imageUrl) {
-                    img.src = data.imageUrl;
                     img.onload = () => {
-                        const canvas = new headbreaker.Canvas('my-canvas', {
-                            width: 800, height: 800, image: img
+                        const autogen = new headbreaker.Canvas('autogen-canvas', {
+                            width: 800, height: 650,
+                            pieceSize: 100, proximity: 20,
+                            borderFill: 10, strokeWidth: 1.5,
+                            lineSoftness: 0.18, image: img,
                         });
-                        canvas.autogenerate();
-                        canvas.shuffle(0.7);
-                        canvas.draw();
+
+                        autogen.adjustImagesToPuzzleHeight();
+                        autogen.autogenerate({
+                            horizontalPiecesCount: 6,
+                            verticalPiecesCount: 5
+                        });
+                        autogen.draw();
                     }
                 } else {
                     alert(data.error || 'Kuvaa ei löytynyt!');

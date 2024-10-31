@@ -36,9 +36,12 @@
         .puzzlePiece {
             position: absolute;
             border: 1px solid #333;
+            clip-path: url(#puzzle-piece-clip);
+            /* Palojen muotoilu */
             cursor: pointer;
             width: 100px;
             height: 100px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -63,6 +66,65 @@
     </div>
     <div id="puzzleContainer"></div>
     <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
+
+    <div id="clipPaths" style="position: absolute; width: 0; height: 0; overflow: hidden;"></div>
+    <svg width="0" height="0">
+        <defs>
+
+            <clipPath id="puzzle-piece-clip-0-0">
+                <path d="M0,0 h100 v20 q-10,10 0,20 v60 q10,10 0,20 h-100 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-0-1">
+                <path d="M0,0 h20 q10,-10 20,0 h60 v100 h-80 q-10,-10 -20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-0-2">
+                <path d="M0,0 h100 v20 q-10,10 0,20 v40 q10,10 0,20 h-100 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-0-3">
+                <path d="M0,0 h80 q20,-10 20,10 v80 q-10,20 -20,10 h-80 Z" />
+            </clipPath>
+
+            <clipPath id="puzzle-piece-clip-1-0">
+                <path d="M0,0 h20 q10,10 0,20 h80 v60 h-80 q-10,10 0,20 h-20 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-1-1">
+                <path d="M20,0 h60 q10,20 20,10 v60 q-10,10 -20,10 h-60 q-10,-20 -20,-10 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-1-2">
+                <path d="M0,0 h100 v100 h-20 q-10,10 -20,0 h-60 v-80 q10,-10 20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-1-3">
+                <path d="M0,0 h100 v20 q10,10 0,20 v60 h-100 Z" />
+            </clipPath>
+
+            <clipPath id="puzzle-piece-clip-2-0">
+                <path d="M0,0 h20 q10,-10 20,0 h60 v80 q-10,10 -20,0 h-60 q-10,10 -20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-2-1">
+                <path d="M0,0 h80 v20 q10,10 0,20 h-80 q-10,10 -20,0 v-20 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-2-2">
+                <path d="M0,0 h100 v20 q-10,10 0,20 v60 q10,10 0,20 h-100 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-2-3">
+                <path d="M20,0 h60 q10,-10 20,10 v80 h-100 v-20 q10,-10 20,0 Z" />
+            </clipPath>
+
+            <clipPath id="puzzle-piece-clip-3-0">
+                <path d="M0,0 h100 v100 h-20 q-10,10 -20,0 h-60 v-80 q10,-10 20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-3-1">
+                <path d="M20,0 h60 q10,10 0,20 v80 h-100 v-60 q10,-10 20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-3-2">
+                <path d="M0,0 h100 v20 q10,10 0,20 v60 h-80 q-10,-10 -20,0 Z" />
+            </clipPath>
+            <clipPath id="puzzle-piece-clip-3-3">
+                <path d="M0,0 h100 v100 h-100 Z" />
+            </clipPath>
+        </defs>
+    </svg>
+    </div>
 
     <script>
         let img = new Image();
@@ -225,6 +287,7 @@
                     piece.style.height = pieceHeight + 'px';
                     piece.style.backgroundImage = `url(${imageUrl})`;
                     piece.style.backgroundPosition = `-${col * (pieceWidth + pieceMargin)}px -${row * (pieceHeight + pieceMargin)}px`;
+                    piece.style.clipPath = `url(#puzzle-piece-clip-${row}-${col})`;
 
                     // Aseta palasten alkuperäinen sijainti satunnaisesti ruudukon ulkopuolelle
                     let randomX = Math.random() * (puzzleContainer.offsetWidth + 100) - 150;
