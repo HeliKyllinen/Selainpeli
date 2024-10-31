@@ -17,7 +17,7 @@ public class MainController {
     @Autowired
     private ImageRepository imagerepository;
 
-    @RequestMapping("home")
+    @RequestMapping(value = {"/", "home"})
     public String home(Model model) {
         model.addAttribute("image", imagerepository.findAll());
         return "index";
