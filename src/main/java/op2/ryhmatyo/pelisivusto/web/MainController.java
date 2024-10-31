@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import op2.ryhmatyo.pelisivusto.domain.Image;
 import op2.ryhmatyo.pelisivusto.domain.ImageRepository;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 @Controller
 public class MainController {
 
@@ -27,6 +29,11 @@ public class MainController {
     public String headbreaker(Model model) {
         model.addAttribute("image", imagerepository.findAll());
         return "headbreaker";
+    }
+
+    @GetMapping("/") // Juuripolku
+    public String index() {
+        return "index";
     }
 
 }
