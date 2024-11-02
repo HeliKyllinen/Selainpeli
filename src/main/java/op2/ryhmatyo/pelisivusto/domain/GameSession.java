@@ -31,9 +31,9 @@ public class GameSession {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @JsonIgnore
+    /*@JsonIgnore
     @OneToMany(mappedBy = "gamesession", cascade = CascadeType.ALL)
-    private List<Puzzle> puzzle = new ArrayList<>();
+    private List<Puzzle> puzzle = new ArrayList<>();*/
 
     private String status;
 
@@ -45,13 +45,13 @@ public class GameSession {
         this.status = status;
     }
 
-    public List<Puzzle> getPuzzle() {
+    /*public List<Puzzle> getPuzzle() {
         return puzzle;
     }
 
     public void setPuzzle(List<Puzzle> puzzle) {
         this.puzzle = puzzle;
-    }
+    }*/
 
     public Long getGameSession_id() {
         return gameSession_id;
@@ -92,7 +92,7 @@ public class GameSession {
                 ", user=" + user +
                 ", game=" + game +
                 ", status=" + status +
-                ", puzzle=" +  puzzle + '\'' +
+                //", puzzle=" +  puzzle + '\'' +
                 '}';
     }
 
