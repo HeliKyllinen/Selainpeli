@@ -80,7 +80,7 @@
         let selectedRows = 5; // oletuskoko 5x5
         let selectedCols = 5;
 
-        // Kuva haetaan backendistä
+        // Kuvan haku backendistä
         async function searchImage() {
             const query = document.getElementById('searchQuery').value.trim();
             if (query === '') {
@@ -96,11 +96,10 @@
                     img.src = data.imageUrl;
 
                     img.onload = () => {
-                        //Kuva näytetään ensin oikean kokoisena eikä enää 400px x 400px
                         const puzzleContainer = document.getElementById('puzzleContainer');
                         puzzleContainer.style.width = img.width + 'px';
                         puzzleContainer.style.height = img.height + 'px';
-                        // Näyttää ensin kokonaisen kuvan
+                        // Ensin koko kuvan näyttö
                         showImageFirst(data.imageUrl);
                     };
                 } else {
@@ -112,16 +111,15 @@
             }
         }
 
-        // Näyttää kuvan kokonaisena 3 sekuntia ennen palapelin luomista
+        // Kuvan näyttö 3 sek ajan
         function showImageFirst(imageUrl) {
             const puzzleContainer = document.getElementById('puzzleContainer');
-            puzzleContainer.innerHTML = ''; // Tyhjentää mahdolliset aiemmat palapelit
+            puzzleContainer.innerHTML = ''; 
 
-            // Poistaa ruudukon, kun kuva näytetään kokonaisena ennen palapelin luomista
-            puzzleContainer.style.display = 'block'; // Näyttää kuvan kokonaisena eikä yhdessä pienessä ruudussa
-            puzzleContainer.style.backgroundImage = 'none'; // Poistaa ruudukon
+            // Ruudukon poisto kuvan näytön ajan
+            puzzleContainer.style.display = 'block'; 
+            puzzleContainer.style.backgroundImage = 'none';
 
-            // Luo kuvaelementin, joka näyttää koko kuvan
             const fullImage = document.createElement('img');
             fullImage.src = imageUrl;
             fullImage.style.width = '100%';
@@ -130,9 +128,9 @@
 
             puzzleContainer.appendChild(fullImage);
 
-            // 3 sekuntia ja muodosta palapeli
+            // 3 sekuntia -> palapeli
             setTimeout(() => {
-                puzzleContainer.removeChild(fullImage); // Poista kokonainen kuva
+                puzzleContainer.removeChild(fullImage);
 
                 // Ruudukko näkyviin
                 puzzleContainer.style.display = 'grid';
@@ -140,8 +138,8 @@
                     'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)';
                 puzzleContainer.style.backgroundSize = `calc(100% / ${selectedCols}) calc(100% / ${selectedRows})`;
 
-                createPuzzle(imageUrl); // Luo palapeli kuvan perusteella
-            }, 3000); // 3 sekunnin viive
+                createPuzzle(imageUrl); // Luo palapeli kuvasta
+            }, 3000); // 3 sek viive
         }
 
         // Hiiren painikkeen painamisen käsittely
@@ -222,7 +220,7 @@
             puzzleContainer.style.width = img.width + 'px';
             puzzleContainer.style.height = img.height + 'px';
 
-            const pieces = [];//TÄMÄ KOHTA
+            const pieces = [];
 
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
@@ -254,7 +252,7 @@
                     piece.dataset.originalTop = piece.style.top;
 
                     piece.addEventListener('mousedown', onMouseDown);
-                    pieces.push(piece); //TÄMÄ KOHTA
+                    pieces.push(piece);
                     puzzleContainer.appendChild(piece);
                 }
             }
@@ -288,15 +286,9 @@
                 }
             });
 
-
             if (isCompleted) {
                 stopTimer();
             }
-        }
-
-        // Ajastin käyntiin
-        function startTimer() {
-            startTime = new Date();
         }
 
         // Ajastin pois päältä (muunnos sekunneiksi)
@@ -310,7 +302,6 @@
         // Ajastimen resetointi
         function resetTimer() {
             startTime = null;
-            timerRunning = false;
             document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
         }
 
