@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+<script src="styles.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kuvagalleria</title>
+</head>
+
+<body>
+    <h1>Kuvagalleria</h1>
+    <div>
+        <a href="/">Takaisin etusivulle</a>
+    </div>
+    <div id="gallery">
+        <th:block th:each="image : ${images}">
+            <li>
+                <img th:src="${image.imageUrl}" alt="Kuva, hakusana: [[${image.searchQuery}]]" />
+                <p>Hakusana: <span th:text="${image.searchQuery}"></span></p>
+            </li>
+        </th:block>
+    </div>
+</body>
+
+</html>
+

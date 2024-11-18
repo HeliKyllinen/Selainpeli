@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+<script src="styles.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palapeli</title>
+</head>
+
+<body>
+    <h1>Palapeli</h1>
+    <div id="searchSection">
+        <input type="text" id="searchQuery" placeholder="Anna hakusana" />
+        <button class="btn btn-success" onclick="searchImage()">Hae kuva</button>
+    </div>
+
+    <div id="gallery1">
+        <a href="gallery">Kuvagalleria</a>
+    </div>    
+    
+    <div>
+    <label for="puzzleSize">Valitse palapelin koko:</label>
+    <select id="puzzleSize" onchange="updatePuzzleSize()">
+        <option value="5">5x5 (25 palaa)</option>
+        <option value="6">6x6 (36 palaa)</option>
+        <option value="7">7x7 (49 palaa)</option>
+    </select>
+    </div>
+    
+    <div id="puzzleContainer"></div>
+    <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
+
+    <script>
+        let img = new Image();
+        let selectedPiece = null;
+        let offsetX, offsetY;
+        let startTime = null;
+  
+        let selectedRows = 5; // oletuskoko 5x5
+        let selectedCols = 5;
+
+        // Kuva haetaan backendistä
+        async function searchImage() {
+            const query = document.getElementById('searchQuery').value.trim();
+            if (query === '') {
+                alert('Syötä hakusana');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/searchImage?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (data.imageUrl) {
+                    img.src = data.imageUrl;
+
+                    img.onload = () => {
+                        //Kuva näytetään ensin oikean kokoisena eikä enää 400px x 400px
+                        const puzzleContainer = document.getElementById('puzzleContainer');
+                        puzzleContainer.style.width = img.width + 'px';
+                        puzzleContainer.style.height = img.height + 'px';
+                        // Näyttää ensin kokonaisen kuvan
+                        showImageFirst(data.imageUrl);
+                    };
+                } else {
+                    alert(data.error || 'Kuvaa ei löytynyt!');
+                }
+            } catch (error) {
+                console.error('Virhe haettaessa kuvia:', error);
+                alert('Virhe haettaessa kuvia.');
+            }
+        }
+
+        // Näyttää kuvan kokonaisena 3 sekuntia ennen palapelin luomista
+        function showImageFirst(imageUrl) {
+            const puzzleContainer = document.getElementById('puzzleContainer');
+            puzzleContainer.innerHTML = ''; // Tyhjentää mahdolliset aiemmat palapelit
+
+            // Poistaa ruudukon, kun kuva näytetään kokonaisena ennen palapelin luomista
+            puzzleContainer.style.display = 'block'; // Näyttää kuvan kokonaisena eikä yhdessä pienessä ruudussa
+            puzzleContainer.style.backgroundImage = 'none'; // Poistaa ruudukon
+
+            // Luo kuvaelementin, joka näyttää koko kuvan
+            const fullImage = document.createElement('img');
+            fullImage.src = imageUrl;
+            fullImage.style.width = '100%';
+            fullImage.style.height = '100%';
+            fullImage.style.objectFit = 'cover';
+
+            puzzleContainer.appendChild(fullImage);
+
+            // 3 sekuntia ja muodosta palapeli
+            setTimeout(() => {
+                puzzleContainer.removeChild(fullImage); // Poista kokonainen kuva
+
+                // Ruudukko näkyviin
+                puzzleContainer.style.display = 'grid';
+                puzzleContainer.style.backgroundImage =
+                    'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)';
+                puzzleContainer.style.backgroundSize = `calc(100% / ${selectedCols}) calc(100% / ${selectedRows})`;
+
+                createPuzzle(imageUrl); // Luo palapeli kuvan perusteella
+            }, 3000); // 3 sekunnin viive
+        }
+
+        // Hiiren painikkeen painamisen käsittely
+        function onMouseDown(e) {
+            selectedPiece = e.target;
+            offsetX = e.clientX - selectedPiece.getBoundingClientRect().left;
+            offsetY = e.clientY - selectedPiece.getBoundingClientRect().top;
+
+            // Ajastin käyntiin
+            if (!startTime) {
+                startTime = new Date();
+            }
+        }
+
+        // Hiiren liikuttamisen käsittely
+        function onMouseMove(e) {
+            if (selectedPiece) {
+                const container = document.getElementById('puzzleContainer');
+                const containerRect = container.getBoundingClientRect();
+
+                let newLeft = e.clientX - offsetX - containerRect.left;
+                let newTop = e.clientY - offsetY - containerRect.top;
+
+                // Estää palan liikkuminen kontin rajojen yli
+                if (newLeft < 0) newLeft = 0;
+                if (newTop < 0) newTop = 0;
+                if (newLeft + selectedPiece.offsetWidth > container.offsetWidth) {
+                    newLeft = container.offsetWidth - selectedPiece.offsetWidth;
+                }
+                if (newTop + selectedPiece.offsetHeight > container.offsetHeight) {
+                    newTop = container.offsetHeight - selectedPiece.offsetHeight;
+                }
+
+                selectedPiece.style.left = newLeft + 'px';
+                selectedPiece.style.top = newTop + 'px';
+            }
+        }
+
+        // Hiiren painikkeen vapautuksen käsittely
+        function onMouseUp() {
+            if (selectedPiece) {
+                const targetLeft = parseFloat(selectedPiece.style.left);
+                const targetTop = parseFloat(selectedPiece.style.top);
+                const correctLeft = parseFloat(selectedPiece.dataset.correctLeft);
+                const correctTop = parseFloat(selectedPiece.dataset.correctTop);
+
+                // Tarkista, onko pala oikeassa paikassa
+                if (Math.abs(targetLeft - correctLeft) < 10 && Math.abs(targetTop - correctTop) < 10) {
+                    selectedPiece.style.left = correctLeft + 'px';
+                    selectedPiece.style.top = correctTop + 'px';
+                    selectedPiece.style.pointerEvents = 'none'; // Pala ei ole enää siirrettävissä
+                    selectedPiece.style.zIndex = 0; // Jos pala on oikeassa paikassa, niin se jää väärän palan alle
+                } else {
+                    // Palaa alkuperäiseen sijaintiin
+                    selectedPiece.style.left = selectedPiece.dataset.originalLeft;
+                    selectedPiece.style.top = selectedPiece.dataset.originalTop;
+                }
+
+                selectedPiece = null;
+
+                // Onko peli valmis?
+                checkIfPuzzleCompleted();
+            }
+        }
+
+        // Palapelin luonti
+        function createPuzzle(imageUrl) {
+            const rows = selectedRows;
+            const cols = selectedCols;
+            const pieceMargin = 1;
+            const puzzleContainer = document.getElementById('puzzleContainer');
+            puzzleContainer.innerHTML = ''; // Tyhjennys
+
+            const pieceWidth = (img.width - (cols - 1) * pieceMargin) / cols;
+            const pieceHeight = (img.height - (rows - 1) * pieceMargin) / rows;
+
+            // Containerin koko riippuu nyt kuvan koosta
+            puzzleContainer.style.width = img.width + 'px';
+            puzzleContainer.style.height = img.height + 'px';
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzlePiece';
+                    piece.style.width = pieceWidth + 'px';
+                    piece.style.height = pieceHeight + 'px';
+                    piece.style.backgroundImage = `url(${imageUrl})`;
+                    piece.style.backgroundPosition = `-${col * (pieceWidth + pieceMargin)}px -${row * (pieceHeight + pieceMargin)}px`;
+
+                    // Aseta palasten alkuperäinen sijainti satunnaisesti ruudukon ulkopuolelle
+                    let randomX = Math.random() * (img.width - pieceWidth);
+                    let randomY = Math.random() * (img.height - pieceHeight);
+
+                    piece.style.left = randomX + 'px';
+                    piece.style.top = randomY + 'px';
+                    piece.style.zIndex = 2;
+
+                    // Tallentaa oikeat palat
+                    piece.dataset.correctLeft = (col * (pieceWidth + pieceMargin)).toString();
+                    piece.dataset.correctTop = (row * (pieceHeight + pieceMargin)).toString();
+                    piece.dataset.originalLeft = piece.style.left;
+                    piece.dataset.originalTop = piece.style.top;
+
+                    piece.addEventListener('mousedown', onMouseDown);
+                    puzzleContainer.appendChild(piece);
+                }
+            }
+
+            // Nollaa ajastimen ja näyttää viestin
+            resetTimer();
+            document.getElementById('completedMessage').style.display = 'none';
+        }
+
+        function updatePuzzleSize() {
+            const size = parseInt(document.getElementById('puzzleSize').value, 10);
+            selectedRows = size;
+            selectedCols = size;
+            createPuzzle(img.src);
+        }
+
+        // Palapelin valmistumisen tsekkaus
+        function checkIfPuzzleCompleted() {
+            const pieces = document.querySelectorAll('.puzzlePiece');
+            let isCompleted = true;
+
+            // Tarkastaa jokaisen palan sijainnin
+            pieces.forEach(piece => {
+                const left = parseInt(piece.style.left);
+                const top = parseInt(piece.style.top);
+                const correctLeft = parseInt(piece.dataset.correctLeft);
+                const correctTop = parseInt(piece.dataset.correctTop);
+
+                if (left !== correctLeft || top !== correctTop) {
+                    isCompleted = false;
+                }
+            });
+
+
+            if (isCompleted) {
+                stopTimer();
+            }
+        }
+
+        // Ajastin käyntiin
+        function startTimer() {
+            startTime = new Date();
+        }
+
+        // Ajastin pois päältä (muunnos sekunneiksi)
+        function stopTimer() {
+            const endTime = new Date();
+            const timeSpent = (endTime - startTime) / 1000;
+            document.getElementById('timeSpent').innerText = `${timeSpent.toFixed(2)} sekuntia`;
+            document.getElementById('completedMessage').style.display = 'block';
+        }
+
+        // Ajastimen resetointi
+        function resetTimer() {
+            startTime = null;
+            timerRunning = false;
+            document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    </script>
+</body>
+</html>
