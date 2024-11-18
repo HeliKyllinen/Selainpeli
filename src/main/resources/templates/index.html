@@ -255,12 +255,24 @@
             startTime = new Date();
         }
 
-        // Ajastin pois päältä (muunnos sekunneiksi)
+        // Tallennetaan kuvan tiedot ja ajat
+        let completedPuzzles = []; 
+
         function stopTimer() {
             const endTime = new Date();
             const timeSpent = (endTime - startTime) / 1000;
+
             document.getElementById('timeSpent').innerText = `${timeSpent.toFixed(2)} sekuntia`;
             document.getElementById('completedMessage').style.display = 'block';
+
+            let completedPuzzles = JSON.parse(localStorage.getItem('completedPuzzles')) || [];
+            completedPuzzles.push({
+            imageUrl: img.src,
+            searchQuery: document.getElementById('searchQuery').value.trim() || "Ei tietoa",
+            timeSpent: timeSpent.toFixed(2),
+            });
+
+            localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
         }
 
         // Ajastimen resetointi

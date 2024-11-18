@@ -19,15 +19,43 @@
     <div>
         <a href="/">Takaisin etusivulle</a>
     </div>
-    <div id="gallery">
-        <th:block th:each="image : ${images}">
-            <li>
-                <img th:src="${image.imageUrl}" alt="Kuva, hakusana: [[${image.searchQuery}]]" />
-                <p>Hakusana: <span th:text="${image.searchQuery}"></span></p>
-            </li>
-        </th:block>
-    </div>
-</body>
+    <div id="gallery"></div>
 
+    <script>
+    // Koko dokumentti on ladattu ennen koodin suorittamista
+    document.addEventListener('DOMContentLoaded', () => {
+    
+    // Galleria-elementti html:stä
+    const gallery = document.getElementById('gallery');
+    
+    // Kaikki tallennetut palapelit
+    const completedPuzzles = JSON.parse(localStorage.getItem('completedPuzzles')) || [];
+    completedPuzzles.forEach((puzzle) => {
+        
+        const listItem = document.createElement('li');
+
+        // Uusi kuvaelementti
+        const image = document.createElement('img');
+        image.src = puzzle.imageUrl;
+        image.alt = "Palapeli"; 
+
+        const queryText = document.createElement('p');
+        queryText.textContent = `Hakusana: ${puzzle.searchQuery}`;
+
+        const timeInfo = document.createElement('p');
+        timeInfo.textContent = `Aika: ${puzzle.timeSpent} sekuntia`; 
+
+        // Kuva, hakusana ja aika listaelementtiin
+        listItem.appendChild(image);
+        listItem.appendChild(queryText);
+        listItem.appendChild(timeInfo);
+
+        gallery.appendChild(listItem);
+    });
+});
+
+
+</script>
+</body>
 </html>
 
