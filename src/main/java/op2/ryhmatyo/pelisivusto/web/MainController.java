@@ -17,16 +17,15 @@ public class MainController {
     @Autowired
     private ImageRepository imagerepository;
 
-    @RequestMapping(value = {"/", "home"})
+    @RequestMapping(value = { "/", "home" })
     public String home(Model model) {
         model.addAttribute("image", imagerepository.findAll());
         return "index";
     }
 
-    @RequestMapping("headbreaker")
-    public String headbreaker(Model model) {
-        model.addAttribute("image", imagerepository.findAll());
-        return "headbreaker";
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
     }
 
 }

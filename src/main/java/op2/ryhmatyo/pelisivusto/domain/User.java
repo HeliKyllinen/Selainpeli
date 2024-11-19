@@ -25,9 +25,7 @@ public class User {
 
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    private String role;
 
     private LocalDate createDate;
 
@@ -35,10 +33,11 @@ public class User {
 
     }
 
-    public User(String username, String password, String email, LocalDate createDate) {
+    public User(String username, String password, String email, String role, LocalDate createDate) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
         this.createDate = createDate;
     }
 
@@ -74,13 +73,13 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
-    }
+    public String getRole() {
+		return role;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
     public LocalDate getCreateDate() {
         return createDate;
