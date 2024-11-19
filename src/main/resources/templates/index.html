@@ -10,14 +10,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palapeli</title>
+    <title>PalanPaikka</title>
 </head>
 
 <body>
-    <h1>Palapeli</h1>
+    <h1>PalanPaikka</h1>
     <div id="searchSection">
         <input type="text" id="searchQuery" placeholder="Anna hakusana" />
-        <button class="btn btn-success" onclick="searchImage()">Hae kuva</button>
+        <button class="btn btn-success custom-button" onclick="searchImage()">Hae kuva</button>
     </div>
 
     <div id="gallery1">
@@ -243,7 +243,6 @@
                     isCompleted = false;
                 }
             });
-
 
             if (isCompleted) {
                 stopTimer();

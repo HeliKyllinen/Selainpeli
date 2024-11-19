@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirjaudu sisään - PalanPaikka</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to right, #cfcff6, #b7e6b7);
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: gray;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            background-color: #e0d2e6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login:hover {
+            background-color: #c7aed1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Kirjaudu sisään</h2>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Käyttäjätunnus</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Salasana</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="submit" class="btn-login">Kirjaudu</button>
+        </form>
+    </div>
+</body>
+
+</html>

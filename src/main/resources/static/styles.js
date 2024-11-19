@@ -15,6 +15,7 @@ style.innerHTML = `
             font-family: 'Roboto Slab', serif;
             text-transform: uppercase;
             color: white;
+            font-size: 50px;
         }
 
         #puzzleContainer {
@@ -41,6 +42,17 @@ style.innerHTML = `
 
         #searchSection {
             margin-bottom: 10px;
+        }
+
+        .custom-button {
+        background-color: #e0d2e6;
+        border-color: #e0d2e6;   
+        color: gray;             
+        }
+
+        .custom-button:hover {
+        background-color: #c7aed1;
+        border-color: #c7aed1;
         }
 
         #gallery1 {

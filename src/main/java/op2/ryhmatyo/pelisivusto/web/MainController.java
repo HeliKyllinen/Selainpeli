@@ -25,4 +25,8 @@ public class MainController {
         return "headbreaker";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login"; 
+    }
 }

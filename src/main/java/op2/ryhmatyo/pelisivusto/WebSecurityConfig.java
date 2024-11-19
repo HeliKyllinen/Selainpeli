@@ -19,15 +19,15 @@ public class WebSecurityConfig {
             .cors().and()
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/css/**", "/login").permitAll() // Salli kirjautumissivu ja CSS
                 .anyRequest().authenticated())
-
-            .formLogin() 
-                .defaultSuccessUrl("/home", true)
-                .permitAll()
-            .and()
+            .formLogin(form -> form
+                .loginPage("/login") // Osoitetaan oma kirjautumissivu
+                .defaultSuccessUrl("/home", true) // Ohjataan onnistuneen kirjautumisen jälkeen
+                .permitAll())
             .logout()
                 .permitAll();
+
         return http.build();
     }
 }
