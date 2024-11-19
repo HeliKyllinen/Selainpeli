@@ -4,9 +4,17 @@ Tiimi: Jenna Räihä, Sakari Arasola, Heli Kyllinen
 
 ## Johdanto
 
-Teemme pelisivuston, missä käyttäjä voi muun muassa koota palapelejä lisätyssä todellisuudessa käyttäen tekoälyn luomia kuvia. Pelit on tarkoitettu kaikille peleistä kiinnostuneille ja erityisesti niille, jotka etsivät viihdettä täyttääkseen tylsät ajankohdat arjessaan. Projektin edetessä tarkoituksemme on luoda pelisivusto, joka sisältää monenlaisia pelejä palapelistä tasohyppelyyn, mutta aloitamme sivuston kunnianhimoisesti luomalla palapelin, joka hyödyntää tekoälyä ja AR-teknologiaa samanaikaisesti. 
+### PalanPaikka – palapelien ystäville
 
-Sovellus on toteutettu käyttäen Spring Bootia, joka vastaa palvelinpuolen logiikasta ja REST-rajapintojen tarjoamisesta. Sovellus käyttää relaatiotietokantaa, kuten MariaDB:tä pelien, käyttäjien ja sessiotietojen tallentamiseen. Lisäksi sovelluksessa hyödynnetään ulkoisia tekoälypalveluja, kuten DALL·E:tä luomaan käyttäjän syötteen perusteella palapelin kuvat. Käyttöliittymä on selainpohjainen ja toteutettu HTML, CSS ja JavaScriptin avulla. Lisätyn todellisuuden (AR) ominaisuudet toteutetaan käyttämällä WebXR APIa tai AR.js-kirjastoa, mikä mahdollistaa AR-kokemuksen suoraan selaimessa ilman lisäohjelmistoja.
+PalanPaikka on käyttäjäystävällinen sovellus, jossa voit koota palapelejä helposti hakusanojen avulla. Sovellus on suunnattu kaikille palapeleistä kiinnostuneille – erityisesti heille, jotka etsivät hauskaa ja rentouttavaa tekemistä arjen kiireiden keskellä.
+
+Alkuperäinen ideamme oli luoda pelialusta, joka tarjoaisi laajan valikoiman pelejä aina palapeleistä tasohyppelyihin. Kehitysprosessin myötä päätimme kuitenkin keskittyä yhteen ytimekkääseen kokemukseen, ja lopputuloksena syntyi PalanPaikka: sovellus, joka tuo palapelit kätesi ulottuville ulkoisen rajapinnan avulla. Projektin pääpaino oli myös kehitysprosessin hallinnassa, erityisesti omavetoisen Scrum-mallin hyödyntämisessä ja onnistuneessa projektinhallinnassa.
+
+PalanPaikka on rakennettu käyttäen Spring Bootia, joka hoitaa palvelinpuolen logiikan ja REST-rajapintojen tarjoamisen. Sovellus hyödyntää Pixabay-rajapintaa, jonka avulla käyttäjä voi hakea palapelikuvia hakusanoilla.
+
+Käyttöliittymä on selainpohjainen ja toteutettu HTML:n, Thymeleafin, CSS:n ja JavaScriptin avulla, mikä tekee sovelluksesta sekä visuaalisesti miellyttävän että toimivan eri laitteilla. Sovellus on julkaistu onnistuneesti Rahti-palvelussa, mikä tekee siitä helposti saavutettavan loppukäyttäjille. Lisäksi se hyödyntää Dockeria, joka mahdollistaa sovelluksen tehokkaan konttienhallinnan ja helpon käyttöönoton eri ympäristöissä.
+
+PalanPaikka on onnistunut yhdistelmä luovuutta, teknologiaa ja huolellista projektinhallintaa – täydellinen valinta kaikille palapelifaneille!
 
 ## Järjestelmän määrittely
 
@@ -19,34 +27,15 @@ käyttäjäryhmät.
     (use case diagram) tai käyttäjätarinoina.
 -   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
 
-Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
-tietoa ja keskittyä siihen.
-
-#### Admin
-
-- On vastuussa pelisivuston hallinnasta ja ylläpidosta
-- Tarvittavat toiminnot:
-    - hallinnoi käyttäjiä
-        - luonti
-        - päivitys
-        - poisto
-    - päivittää sivuston asetuksia
-
-#### Kehittäjä
-
-- Kehittää pelejä pelisivustolle
-- Tarvittavat toiminnot:
-    - pelin lisäys sivustolle
-    - pelin päivitys tai poisto
 
 #### Käyttäjä
 
-- Pelaa pelejä pelisivustolla
+- Kokoaa palapelejä pelisivustolla
 - Tarvittavat toiminnot:
     - sivustolle kirjautuminen
-    - pelien selaaminen
-    - pelin pelaaminen
-    - seuraa omia suorituksia ja saavutuksia
+    - kuvan hakeminen
+    - palapelin kokoaminen
+    - koottujen kuvien selaaminen ja aikojen tarkastelu
 
 ## Käyttöliittymä
 
@@ -58,9 +47,11 @@ tietoa ja keskittyä siihen.
 - Admin-näkymä
 
 ### Aloitusnäkymä
-![Aloitusnäkymä](https://github.com/user-attachments/assets/ceb3bba4-12a6-4b1a-92e7-031419e696cf)
+![image](https://github.com/user-attachments/assets/c59a2381-0ffe-4edc-85b2-18e0cc38e0bf)
 
-### LISÄÄ NÄKYMIÄ TULOSSA!
+### Kuvagalleria
+
+![image](https://github.com/user-attachments/assets/8555a9e8-5d4e-4e65-a641-174b5ae290d3)
 
 ## Tietokanta
 
@@ -183,12 +174,16 @@ Tämän lisäksi
 
 ## Testaus
 
-Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
-testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
-Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin.
+Sovellukseen suoritettiin muutama Robot Framework -testaus osana Ojhelmistokehityksen teknologioita -kurssin seminaarityön osuutta:
 
-Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
+Testit kirjautumiselle, pääsivun näyttämiselle, hakusanalle ja kuvan näyttämiselle ovat kaikki koostettuna tässä ui.robot-testitiedostossa:
+![image](https://github.com/user-attachments/assets/2588258b-dbe0-488e-9a81-571832da8e5a)
+
+Testit onnistuivat:
+![image](https://github.com/user-attachments/assets/1a381324-61c1-404b-9b8e-1720c5f4d5d4)
+
+Robotin ottamat kuvakaappaukset:
+![Blank 4 Panel Rectangles Comic Strip](https://github.com/user-attachments/assets/accc4c10-0a62-471b-9aec-af2ddabc7b5b)
 
 ## Asennustiedot
 
