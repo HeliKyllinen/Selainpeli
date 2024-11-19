@@ -177,9 +177,13 @@ Tämän lisäksi
 Sovellukseen suoritettiin muutama Robot Framework -testaus osana Ojhelmistokehityksen teknologioita -kurssin seminaarityön osuutta:
 
 Testit kirjautumiselle, pääsivun näyttämiselle, hakusanalle ja kuvan näyttämiselle ovat kaikki koostettuna tässä ui.robot-testitiedostossa:
+![image](https://github.com/user-attachments/assets/2588258b-dbe0-488e-9a81-571832da8e5a)
 
+Testit onnistuivat:
 ![image](https://github.com/user-attachments/assets/1a381324-61c1-404b-9b8e-1720c5f4d5d4)
 
+Robotin ottamat kuvakaappaukset:
+![Blank 4 Panel Rectangles Comic Strip](https://github.com/user-attachments/assets/accc4c10-0a62-471b-9aec-af2ddabc7b5b)
 
 ## Asennustiedot
 
