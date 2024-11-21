@@ -15,7 +15,7 @@ style.innerHTML = `
     }
 
     #puzzleContainer {
-        display: grid;
+        display: none;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(4, 1fr);
         gap: 1px;
@@ -45,6 +45,18 @@ style.innerHTML = `
         margin-top: 20px;
         font-size: 24px;
         color: green;
+    }
+
+    #playerCount {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 `;
 document.head.appendChild(style);

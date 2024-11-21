@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,20 @@
 </head>
 
 <body>
+    <div id="playerCount">Pelaajia paikalla: <span id="onlinePlayers">0</span></div>
     <h1>Palapeli</h1>
     <div id="searchSection">
         <input type="text" id="searchQuery" placeholder="Anna hakusana" />
         <button onclick="searchImage()">Hae kuva</button>
     </div>
-    
+
     <label for="puzzleSize">Valitse palapelin koko:</label>
     <select id="puzzleSize" onchange="updatePuzzleSize()">
         <option value="5">5x5 (25 palaa)</option>
         <option value="6">6x6 (36 palaa)</option>
         <option value="7">7x7 (49 palaa)</option>
     </select>
-    
+
     <div id="puzzleContainer"></div>
     <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
 
@@ -29,7 +31,7 @@
         let selectedPiece = null;
         let offsetX, offsetY;
         let startTime = null;
-  
+
         let selectedRows = 5; // oletuskoko 5x5
         let selectedCols = 5;
 
@@ -67,10 +69,10 @@
         // Kuvan näyttö 3 sek ajan
         function showImageFirst(imageUrl) {
             const puzzleContainer = document.getElementById('puzzleContainer');
-            puzzleContainer.innerHTML = ''; 
+            puzzleContainer.innerHTML = '';
 
             // Ruudukon poisto kuvan näytön ajan
-            puzzleContainer.style.display = 'block'; 
+            puzzleContainer.style.display = 'block';
             puzzleContainer.style.backgroundImage = 'none';
 
             const fullImage = document.createElement('img');
@@ -173,8 +175,6 @@
             puzzleContainer.style.width = img.width + 'px';
             puzzleContainer.style.height = img.height + 'px';
 
-            const pieces = [];
-
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
                     const piece = document.createElement('div');
@@ -185,14 +185,8 @@
                     piece.style.backgroundPosition = `-${col * (pieceWidth + pieceMargin)}px -${row * (pieceHeight + pieceMargin)}px`;
 
                     // Aseta palasten alkuperäinen sijainti satunnaisesti ruudukon ulkopuolelle
-                    let randomX = Math.random() * (puzzleContainer.offsetWidth + 100) - 150;
-                    let randomY = Math.random() * (puzzleContainer.offsetHeight + 100) - 150;
-
-                    // Estää palan sijoittaminen näkyviin ruudukon sisälle
-                    if (randomX < 0) randomX = -100;
-                    if (randomX > puzzleContainer.offsetWidth) randomX = puzzleContainer.offsetWidth;
-                    if (randomY < 0) randomY = -100;
-                    if (randomY > puzzleContainer.offsetHeight) randomY = puzzleContainer.offsetHeight;
+                    let randomX = Math.random() * (img.width - pieceWidth);
+                    let randomY = Math.random() * (img.height - pieceHeight);
 
                     piece.style.left = randomX + 'px';
                     piece.style.top = randomY + 'px';
@@ -205,7 +199,6 @@
                     piece.dataset.originalTop = piece.style.top;
 
                     piece.addEventListener('mousedown', onMouseDown);
-                    pieces.push(piece);
                     puzzleContainer.appendChild(piece);
                 }
             }
@@ -258,8 +251,28 @@
             document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
         }
 
+        async function updatePlayerCount() {
+            try {
+                const response = await fetch('/onlinePlayers');
+                if (response.ok) {
+                    const count = await response.json();
+                    document.getElementById('onlinePlayers').innerText = count;
+                } else {
+                    console.error('Paikalla olevia pelaajia ei pystytty laskemaan');
+                }
+            } catch (error) {
+                console.error('Virhe:', error);
+            }
+        }
+
+        // 30 sekunnin välein laskurin päivitys
+        setInterval(updatePlayerCount, 30000);
+
+        updatePlayerCount();
+
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     </script>
 </body>
+
 </html>
