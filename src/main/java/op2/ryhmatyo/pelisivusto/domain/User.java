@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 
+
 @Entity
 public class User {
 
@@ -24,16 +25,19 @@ public class User {
 
     private String email;
 
+    private String role;
+
     private LocalDate createDate;
 
     public User() {
 
     }
 
-    public User(String username, String password, String email, LocalDate createDate) {
+    public User(String username, String password, String email, String role, LocalDate createDate) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
         this.createDate = createDate;
     }
 
@@ -69,6 +73,14 @@ public class User {
         this.email = email;
     }
 
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -80,7 +92,7 @@ public class User {
     @Override
     public String toString() {
         return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", email=" + email
-                + ", createDate=" + createDate + "]";
+                + ", role=" + role + ", createDate=" + createDate + "]";
     }
 
 }

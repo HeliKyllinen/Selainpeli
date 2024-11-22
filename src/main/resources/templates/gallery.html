@@ -25,37 +25,54 @@
     // Koko dokumentti on ladattu ennen koodin suorittamista
     document.addEventListener('DOMContentLoaded', () => {
     
-    // Galleria-elementti html:stä
-    const gallery = document.getElementById('gallery');
+        // Galleria-elementti html:stä
+        const gallery = document.getElementById('gallery');
     
-    // Kaikki tallennetut palapelit
-    const completedPuzzles = JSON.parse(localStorage.getItem('completedPuzzles')) || [];
-    completedPuzzles.forEach((puzzle) => {
+        // Kaikki tallennetut palapelit
+        let completedPuzzles = JSON.parse(localStorage.getItem('completedPuzzles')) || [];
         
-        const listItem = document.createElement('li');
+        // Gallerian päivitys
+        const updateGallery = () => {
+            gallery.innerHTML = ""; 
+            
+            completedPuzzles.forEach((puzzle, index) => {
+                const listItem = document.createElement('li');
 
-        // Uusi kuvaelementti
-        const image = document.createElement('img');
-        image.src = puzzle.imageUrl;
-        image.alt = "Palapeli"; 
+                // Uusi kuvaelementti
+                const image = document.createElement('img');
+                image.src = puzzle.imageUrl;
+                image.alt = "Palapeli"; 
 
-        const queryText = document.createElement('p');
-        queryText.textContent = `Hakusana: ${puzzle.searchQuery}`;
+                const queryText = document.createElement('p');
+                queryText.textContent = `Hakusana: ${puzzle.searchQuery}`;
 
-        const timeInfo = document.createElement('p');
-        timeInfo.textContent = `Aika: ${puzzle.timeSpent} sekuntia`; 
+                const timeInfo = document.createElement('p');
+                timeInfo.textContent = `Aika: ${puzzle.timeSpent} sekuntia`; 
 
-        // Kuva, hakusana ja aika listaelementtiin
-        listItem.appendChild(image);
-        listItem.appendChild(queryText);
-        listItem.appendChild(timeInfo);
+                // Poistaminen
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = "Poista";
+                deleteButton.style.marginTop = "10px";
+                deleteButton.addEventListener('click', () => {
+                    // Kuvan poistaminen listasta ja localStoragen päivitys
+                    completedPuzzles.splice(index, 1);
+                    localStorage.setItem('completedPuzzles', JSON.stringify(completedPuzzles));
+                    updateGallery(); 
+                });
 
-        gallery.appendChild(listItem);
+                // Kuva, hakusana, aika ja Poista-nappi listaelementtiin
+                listItem.appendChild(image);
+                listItem.appendChild(queryText);
+                listItem.appendChild(timeInfo);
+                listItem.appendChild(deleteButton);
+
+                gallery.appendChild(listItem);
+            });
+        };
+
+        updateGallery();
     });
-});
-
-
-</script>
+    </script>
 </body>
 </html>
 

@@ -107,5 +107,46 @@ style.innerHTML = `
             font-size: 14px;
             color: #333;
         }
+
+           .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 10px;
+            flex: 1 1 calc(20% - 20px); 
+            max-width: calc(20% - 20px);
+            box-sizing: border-box;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .card p {
+            margin: 10px 0;
+        }
+
+        .card button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #d32f2f;
+        }
+
+        #gallery2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; 
+            justify-content: center;
+        }
  `;
 document.head.appendChild(style);
