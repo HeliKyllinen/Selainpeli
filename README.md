@@ -58,7 +58,7 @@ Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien k
 
 ## Tietokanta
 
-![image](https://github.com/user-attachments/assets/c27f6e42-2c19-4d64-90b9-63ad8b36f76f)
+![pelitietokanta5](https://github.com/user-attachments/assets/07e6bf68-3f8e-48df-9027-3f97257ff6cc)
 
 > ### _User_
 > _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili.
