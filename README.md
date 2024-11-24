@@ -50,7 +50,7 @@ Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien k
 - Admin-näkymä
 
 ### Aloitusnäkymä
-![image](https://github.com/user-attachments/assets/c59a2381-0ffe-4edc-85b2-18e0cc38e0bf)
+![image](https://github.com/user-attachments/assets/488a257a-61fe-4263-9dd5-074bd14d983c)
 
 ### Kuvagalleria
 
@@ -58,7 +58,7 @@ Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien k
 
 ## Tietokanta
 
-![Alt text](pelitietokanta5.png)
+![image](https://github.com/user-attachments/assets/c27f6e42-2c19-4d64-90b9-63ad8b36f76f)
 
 > ### _User_
 > _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili.
