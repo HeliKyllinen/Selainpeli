@@ -1,4 +1,5 @@
 package op2.ryhmatyo.pelisivusto.domain;
+<<<<<<< Updated upstream
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +7,18 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+=======
+>>>>>>> Stashed changes
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+<<<<<<< Updated upstream
 import jakarta.persistence.OneToMany;
+=======
+>>>>>>> Stashed changes
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -27,6 +33,7 @@ public class GameSession {
     @JoinColumn(name = "user_id")
     private User user;
 
+<<<<<<< Updated upstream
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
@@ -35,6 +42,8 @@ public class GameSession {
     @OneToMany(mappedBy = "gamesession", cascade = CascadeType.ALL)
     private List<Puzzle> puzzle = new ArrayList<>();
 
+=======
+>>>>>>> Stashed changes
     private String status;
 
     public GameSession() {
@@ -45,6 +54,7 @@ public class GameSession {
         this.status = status;
     }
 
+<<<<<<< Updated upstream
     public List<Puzzle> getPuzzle() {
         return puzzle;
     }
@@ -53,6 +63,8 @@ public class GameSession {
         this.puzzle = puzzle;
     }
 
+=======
+>>>>>>> Stashed changes
     public Long getGameSession_id() {
         return gameSession_id;
     }
@@ -69,14 +81,6 @@ public class GameSession {
         this.user = user;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -90,9 +94,11 @@ public class GameSession {
         return "GameSession{" +
                 "gameSessionId=" + gameSession_id +
                 ", user=" + user +
-                ", game=" + game +
                 ", status=" + status +
+<<<<<<< Updated upstream
                 ", puzzle=" +  puzzle + '\'' +
+=======
+>>>>>>> Stashed changes
                 '}';
     }
 

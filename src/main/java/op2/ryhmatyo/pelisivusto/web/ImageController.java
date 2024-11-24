@@ -1,10 +1,12 @@
-package op2.ryhmatyo.pelisivusto.web; 
+package op2.ryhmatyo.pelisivusto.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,38 +24,46 @@ import java.util.Optional;
 @RestController
 public class ImageController {
 
-    @Autowired
-    private ImageService imageService;
+  @Autowired
+  private ImageService imageService;
 
-    @GetMapping("/searchImage") 
-    public ResponseEntity<Map<String, String>> searchImage(@RequestParam("query") String searchQuery) {
-        try {
-            Image image = imageService.searchAndSaveImage(searchQuery);
-            Map<String, String> response = new HashMap<>();
-            response.put("imageUrl", image.getImageUrl());
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Kuvaa ei löytynyt hakusanalla " + searchQuery);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+  @GetMapping("/searchImage")
+  public ResponseEntity<Map<String, String>> searchImage(@RequestParam("query") String searchQuery) {
+    try {
+      Image image = imageService.searchAndSaveImage(searchQuery);
+      Map<String, String> response = new HashMap<>();
+      response.put("imageUrl", image.getImageUrl());
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      e.printStackTrace();
+      Map<String, String> errorResponse = new HashMap<>();
+      errorResponse.put("error", "Kuvaa ei löytynyt hakusanalla " + searchQuery);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+  }
 
-    @Autowired
-    private ImageRepository imagerepository;
+  @Autowired
+  private ImageRepository imagerepository;
 
-    // Kaikki tiedot JSON-muodossa
+  // Kaikki tiedot JSON-muodossa
 
-    @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public List<Image> ImageListRest() {
-      return (List<Image>) imagerepository.findAll();
-    }
+  @RequestMapping(value = "/images", method = RequestMethod.GET)
+  public List<Image> ImageListRest() {
+    return (List<Image>) imagerepository.findAll();
+  }
 
-    // ID:n avulla haettavat tiedot tietystä kuvasta
+  // ID:n avulla haettavat tiedot tietystä kuvasta
 
-    @RequestMapping(value = "/image/{id}", method = RequestMethod.GET)
-    public Optional<Image> findImageRest(@PathVariable("id") Long image_id) {
-      return imagerepository.findById(image_id);
-    }
+  @RequestMapping(value = "/image/{id}", method = RequestMethod.GET)
+  public Optional<Image> findImageRest(@PathVariable("id") Long image_id) {
+    return imagerepository.findById(image_id);
+  }
+
+  // Kuvan lisääminen tietokantaan
+
+  @RequestMapping(value = "/images", method = RequestMethod.POST)
+  public Image addImage(@RequestBody Image image) {
+    return imagerepository.save(image);
+
+  }
 }

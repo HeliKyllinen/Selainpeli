@@ -67,6 +67,7 @@
     <div id="puzzleContainer"></div>
     <div id="completedMessage">Palapeli on valmis! Aikasi oli <span id="timeSpent"></span>.</div>
 
+<<<<<<< Updated upstream
     <div id="clipPaths" style="position: absolute; width: 0; height: 0; overflow: hidden;"></div>
     <svg width="0" height="0">
         <defs>
@@ -124,6 +125,12 @@
             </clipPath>
         </defs>
     </svg>
+=======
+    <div id="statsBox">
+        <h2>Käyttäjätilastot</h2>
+        <p>Keskimääräinen aika: <span id="averageTime">--</span> sekuntia</p>
+        <p>Ratkaistut palapelit: <span id="puzzlesSolved">--</span></p>
+>>>>>>> Stashed changes
     </div>
 
     <script>
@@ -343,6 +350,7 @@
             }
         }
 
+<<<<<<< Updated upstream
         // Ajastin käyntiin
         function startTimer() {
             startTime = new Date();
@@ -677,6 +685,104 @@
             document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
         }
 
+=======
+
+
+        async function updatePlayerCount() {
+            try {
+                const response = await fetch('/onlinePlayers');
+                if (response.ok) {
+                    const count = await response.json();
+                    document.getElementById('onlinePlayers').innerText = count;
+                } else {
+                    console.error('Paikalla olevia pelaajia ei pystytty laskemaan');
+                }
+            } catch (error) {
+                console.error('Virhe:', error);
+            }
+        }
+
+        // 30 sekunnin välein laskurin päivitys
+        setInterval(updatePlayerCount, 30000);
+
+        updatePlayerCount();
+
+        // Haku käyttäjän tilastoille
+        async function fetchUserStats(userId) {
+
+            if (!userId) {
+                console.error("Käyttäjän tilastojen haussa tapahtui virhe.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/userstats/${userId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('averageTime').innerText = data.averageTime.toFixed(2);
+                    document.getElementById('puzzlesSolved').innerText = data.puzzlesSolved;
+                } else {
+                    console.error('Virhe haettaessa käyttäjätilastoja:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Virhe:', error);
+            }
+        }
+
+        fetchUserStats();
+
+        // Tilastot päivittyy, kun palapeli on valmis
+        async function updateStatsAfterPuzzle(timeSpent) {
+
+            const userStatsId = sessionStorage.getItem('userStatsId');
+
+            try {
+                const response = await fetch('/userstats/${userStatsId}');
+                if (response.ok) {
+                    const stats = await response.json();
+                    const newAverageTime = ((stats.averageTime * stats.puzzlesSolved) + timeSpent) / (stats.puzzlesSolved + 1);
+                    const updatedStats = {
+                        averageTime: newAverageTime,
+                        puzzlesSolved: stats.puzzlesSolved + 1
+                    };
+
+                    // Tilastojen päivitys tietokannassa
+                    const updateResponse = await fetch('/userstats/${userStatsId}', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedStats)
+                    });
+
+                    if (!updateResponse.ok) {
+                        throw new Error(`Tilastojen päivitys epäonnistui: ${updateResponse.statusText}`);
+                    }
+
+                    // Tilastoboxin päivitys
+                    document.getElementById('averageTime').innerText = newAverageTime.toFixed(2);
+                    document.getElementById('puzzlesSolved').innerText = updatedStats.puzzlesSolved;
+                }
+            } catch (error) {
+                console.error('Virhe päivittäessä käyttäjätilastoja:', error);
+            }
+        }
+
+        // Ajastin pois päältä (muunnos sekunneiksi)
+        function stopTimer() {
+            const endTime = new Date();
+            const timeSpent = (endTime - startTime) / 1000;
+            document.getElementById('timeSpent').innerText = `${timeSpent.toFixed(2)} sekuntia`;
+            document.getElementById('completedMessage').style.display = 'block';
+
+            updateStatsAfterPuzzle(timeSpent);
+        }
+
+        // Ajastimen resetointi
+        function resetTimer() {
+            startTime = null;
+            document.getElementById('completedMessage').style.display = 'none'; // Piilota valmis-viesti
+        }
+
+>>>>>>> Stashed changes
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
 

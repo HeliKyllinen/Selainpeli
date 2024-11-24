@@ -18,6 +18,10 @@ public class User {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Long user_id;
 
+    @ManyToOne
+    @JoinColumn(name = "userStatsId")
+    private UserStats userStats;
+
     private String username;
 
     private String password;
@@ -47,6 +51,14 @@ public class User {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public UserStats getUserStats() {
+        return userStats;
+    }
+
+    public void setUserStats(UserStats userStats) {
+        this.userStats = userStats;
     }
 
     public String getUsername() {
@@ -91,7 +103,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", email=" + email
+        return "User [user_id=" + user_id + ", userStats=" + userStats + ", username=" + username + ", password=" + password + ", email=" + email
                 + ", role=" + role + ", createDate=" + createDate + "]";
     }
 
