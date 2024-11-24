@@ -1,7 +1,12 @@
 package op2.ryhmatyo.pelisivusto.domain;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
 
-public interface GameSessionRepository extends CrudRepository<GameSession, Long> {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GameSessionRepository extends JpaRepository<GameSession, Long> {
+    Long countByStatus(String status);
+
+    Optional<GameSession> findByUserAndStatus(User user, String status);
 }
+

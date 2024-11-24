@@ -1,18 +1,11 @@
 package op2.ryhmatyo.pelisivusto.domain;
 
-//import java.util.ArrayList;
-//import java.util.List;
-
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-
-//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-//import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
@@ -36,6 +29,7 @@ public class GameSession {
     public GameSession(String status) {
         this.status = status;
     }
+
 
     public Long getGameSession_id() {
         return gameSession_id;
@@ -71,5 +65,4 @@ public class GameSession {
     }
 
 }
-
 
