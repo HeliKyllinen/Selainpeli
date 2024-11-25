@@ -10,12 +10,6 @@ PalanPaikka on käyttäjäystävällinen sovellus, jossa voit koota palapelejä 
 
 Alkuperäinen ideamme oli luoda pelialusta, joka tarjoaisi laajan valikoiman pelejä aina palapeleistä tasohyppelyihin. Kehitysprosessin myötä päätimme kuitenkin keskittyä yhteen ytimekkääseen kokemukseen, ja lopputuloksena syntyi PalanPaikka: sovellus, joka tuo palapelit kätesi ulottuville ulkoisen rajapinnan avulla. Projektin pääpaino oli myös kehitysprosessin hallinnassa, erityisesti omavetoisen Scrum-mallin hyödyntämisessä ja onnistuneessa projektinhallinnassa.
 
-PalanPaikka on rakennettu käyttäen Spring Bootia, joka hoitaa palvelinpuolen logiikan ja REST-rajapintojen tarjoamisen. Sovellus hyödyntää Pixabay-rajapintaa, jonka avulla käyttäjä voi hakea palapelikuvia hakusanoilla.
-
-Käyttöliittymä on selainpohjainen ja toteutettu HTML:n, Thymeleafin, CSS:n ja JavaScriptin avulla, mikä tekee sovelluksesta sekä visuaalisesti miellyttävän että toimivan eri laitteilla. Sovellus on julkaistu onnistuneesti Rahti-palvelussa, mikä tekee siitä helposti saavutettavan loppukäyttäjille. Lisäksi se hyödyntää Dockeria, joka mahdollistaa sovelluksen tehokkaan konttienhallinnan ja helpon käyttöönoton eri ympäristöissä.
-
-PalanPaikka on onnistunut yhdistelmä luovuutta, teknologiaa ja huolellista projektinhallintaa – täydellinen valinta kaikille palapelifaneille!
-
 ## Järjestelmän määrittely
 
 Järjestelmän pääasiallinen käyttäjä on pelaaja, joka käyttää sivustoa palapelien luomiseen ja kokoamiseen.
@@ -91,24 +85,14 @@ Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien k
 
 ## Tekninen kuvaus
 
-Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
-ratkaisut, esim.
+PalanPaikka on rakennettu käyttäen Spring Bootia, joka hoitaa palvelinpuolen logiikan ja REST-rajapintojen tarjoamisen. Sovellus hyödyntää Pixabay-rajapintaa, jonka avulla käyttäjä voi hakea palapelikuvia hakusanoilla.
 
--   Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
-    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
-    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)
--   Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.
--   Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
-    UML-sekvenssikaavioilla.
--   Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.
+- Tästä linkistä voit pelata peliämme: https://selainpeli-git-pelisivusto-2024.2.rahtiapp.fi/login
+- Käyttäjät ja salasanat löytyvät dokumentaation alhaalta.
 
-Tämän lisäksi
+Käyttöliittymä on selainpohjainen ja toteutettu HTML:n, Thymeleafin, CSS:n ja JavaScriptin avulla, mikä tekee sovelluksesta sekä visuaalisesti miellyttävän että toimivan eri laitteilla. Sovellus on julkaistu onnistuneesti Rahti-palvelussa, mikä tekee siitä helposti saavutettavan loppukäyttäjille. Sovelluksemme käyttää MariaDB-tietokantaa. Lisäksi se hyödyntää Dockeria, joka mahdollistaa sovelluksen tehokkaan konttienhallinnan ja helpon käyttöönoton eri ympäristöissä.
 
--   ohjelmakoodin tulee olla kommentoitua
--   luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
-    johdonmukaisia nimeämiskäytäntöjä
--   ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
-    vältytään
+PalanPaikka on onnistunut yhdistelmä luovuutta, teknologiaa ja huolellista projektinhallintaa – täydellinen valinta kaikille palapelifaneille!
 
 ## Testaus
 
@@ -131,10 +115,10 @@ Järjestelmän kehitysympäristön asennus:
 ## Käynnistys- ja käyttöohje
 
 ### Paikallinen
-Avaa Docker Desktop ja esimerkiksi VS Code. Käynnistä sovellus terminaalissa komennolla "docker compose up --build". Avaa linkki ja sovellus käynnistyy. Käyttäjänimi on user ja salasana password. Sulje sovellus terminaalissa komennolla "docker compose down -v".
+Avaa Docker Desktop ja esimerkiksi VS Code. Käynnistä sovellus terminaalissa komennolla "docker compose up --build". Avaa linkki ja sovellus käynnistyy. Käyttäjät: maija (salasana root) ja matti (salasana toor). Sulje sovellus terminaalissa komennolla "docker compose down -v".
 
 ### Rahti
-Sovellus on julkaistu rahdin kautta: https://selainpeli-git-pelisivusto-2024.2.rahtiapp.fi. Käyttäjänimi on user ja salasana password.
+Sovellus on julkaistu rahdin kautta: https://selainpeli-git-pelisivusto-2024.2.rahtiapp.fi. Käyttäjät: maija (salasana root) ja matti (salasana toor).
 
 ### Codespace
-Githubin codespacessa on helppo käyttää dockeria, koska mitään ei tarvitse ladata paikallisesti. Avaa codespace. Anna terminaalissa käsky "docker compose up --build". Porttien auettua muuta niiden näkyvyys yksityisestä julkiseksi. Avaa linkki ja sovellus käynnistyy. Käyttäjänimi on user ja salasana password. Sulje sovellus terminaalissa komennolla "docker compose down -v". 
+Githubin codespacessa on helppo käyttää dockeria, koska mitään ei tarvitse ladata paikallisesti. Avaa codespace. Anna terminaalissa käsky "docker compose up --build". Porttien auettua muuta niiden näkyvyys yksityisestä julkiseksi. Avaa linkki ja sovellus käynnistyy. Käyttäjät: maija (salasana root) ja matti (salasana toor). Sulje sovellus terminaalissa komennolla "docker compose down -v". 

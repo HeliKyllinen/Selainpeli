@@ -35,9 +35,6 @@ INSERT INTO user (username, password, email, role, create_date) VALUES
 ('maija', '$2a$10$bHuGnxspXWIfAebaoq9Mw.VES7LCSp2M2.VKPbfjqFdbPIKW0h3lO', 'maijameikalainen@gmail.com', 'ADMIN', '2024-09-16'), 
 ('matti', '$2a$10$FvuYuTcfWMlwua1U0blhVOufUgvCB1QvmpqCNQlw5sB5zeRV5LtQK', 'mattimeikalainen@gmail.com', 'USER', '2024-09-17');
 
--- maija root SIIRRÄ ENV TIEDOSTON
--- matti toor ^^^^
-
 INSERT INTO game_session (status, user_id, game_id) VALUES
 ('online', 1, 1),
 ('offline', 2, 2);
