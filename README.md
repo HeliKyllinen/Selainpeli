@@ -32,18 +32,19 @@ Käyttäjänä haluan syöttää tekstin hakukenttään ja saada siitä pixabayn
 
 Käyttäjänä haluan kirjautua palapelisivustolle sisään ja tarkastella tekemiäni palapelejä.
 
-Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien kasausaikoja.
+Käyttäjänä haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien kasausaikoja.
 
 ## Käyttöliittymä
 
 ### Käyttöliittymäkaaviona:
-- Aloitusnäkymä
-- Pelivalikko
-    - Pelinäkymä
-- Käyttäjätili
-- Admin-näkymä
+- Kirjautuminen
+- Palapelinäkymä
+- Kuvagalleria
 
-### Aloitusnäkymä
+### Kirjautuminen
+
+
+### Palapelinäkymä
 ![image](https://github.com/user-attachments/assets/488a257a-61fe-4263-9dd5-074bd14d983c)
 
 ### Kuvagalleria
@@ -80,8 +81,7 @@ Käyttäjän haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien k
 > ------ | ------ | ------
 > image_id | PK* AN | Luodun kuvan idnumero
 > image_url| * C/550 | Kuvan url-osoite
-> description| *C/500 | Kuvaus millä kuva on luotu
-> createDate | *DATE | Päivämäärä milloin kuva on luotu
+> searchQuery| * C/550 | Kuvan hakusana
 
 ## Tekninen kuvaus
 
