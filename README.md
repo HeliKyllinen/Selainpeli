@@ -10,6 +10,8 @@ PalanPaikka on käyttäjäystävällinen sovellus, jossa voit koota palapelejä 
 
 Alkuperäinen ideamme oli luoda pelialusta, joka tarjoaisi laajan valikoiman pelejä aina palapeleistä tasohyppelyihin. Kehitysprosessin myötä päätimme kuitenkin keskittyä yhteen ytimekkääseen kokemukseen, ja lopputuloksena syntyi PalanPaikka: sovellus, joka tuo palapelit kätesi ulottuville ulkoisen rajapinnan avulla. Projektin pääpaino oli myös kehitysprosessin hallinnassa, erityisesti omavetoisen Scrum-mallin hyödyntämisessä ja onnistuneessa projektinhallinnassa.
 
+PalanPaikka on onnistunut yhdistelmä luovuutta, teknologiaa ja huolellista projektinhallintaa – täydellinen valinta kaikille palapelifaneille!
+
 ## Järjestelmän määrittely
 
 Järjestelmän pääasiallinen käyttäjä on pelaaja, joka käyttää sivustoa palapelien luomiseen ja kokoamiseen.
@@ -52,7 +54,7 @@ Käyttäjänä haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien
 
 ## Tietokanta
 
-![pelitietokanta5](https://github.com/user-attachments/assets/07e6bf68-3f8e-48df-9027-3f97257ff6cc)
+![Näyttökuva (311)](https://github.com/user-attachments/assets/3206ed6f-0013-4fc2-96d0-dc448bc7a500)
 
 > ### _User_
 > _User-taulu sisältää pelisivuston käyttäjät. Käyttäjällä voi olla vain yksi tili.
@@ -90,8 +92,6 @@ PalanPaikka on rakennettu käyttäen Spring Bootia, joka hoitaa palvelinpuolen l
 - Käyttäjät ja salasanat löytyvät dokumentaation alhaalta.
 
 Käyttöliittymä on selainpohjainen ja toteutettu HTML:n, Thymeleafin, CSS:n ja JavaScriptin avulla, mikä tekee sovelluksesta sekä visuaalisesti miellyttävän että toimivan eri laitteilla. Sovellus on julkaistu onnistuneesti Rahti-palvelussa, mikä tekee siitä helposti saavutettavan loppukäyttäjille. Sovelluksemme käyttää MariaDB-tietokantaa. Lisäksi se hyödyntää Dockeria, joka mahdollistaa sovelluksen tehokkaan konttienhallinnan ja helpon käyttöönoton eri ympäristöissä.
-
-PalanPaikka on onnistunut yhdistelmä luovuutta, teknologiaa ja huolellista projektinhallintaa – täydellinen valinta kaikille palapelifaneille!
 
 ## Testaus
 
