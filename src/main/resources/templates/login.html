@@ -67,6 +67,9 @@
 <body>
     <div class="login-container">
         <h2>Kirjaudu sisään</h2>
+        <div th:if="${errorMessage}" style="color: red; margin-bottom: 1rem;">
+            <p th:text="${errorMessage}"></p>
+        </div>
         <form action="/login" method="post">
             <div class="form-group">
                 <label for="username">Käyttäjätunnus</label>
