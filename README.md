@@ -42,13 +42,12 @@ Käyttäjänä haluan pystyä vertailemaan kuvagalleriassa kokoamieni palapelien
 - Kuvagalleria
 
 ### Kirjautuminen
-
+![image](https://github.com/user-attachments/assets/a053d49b-479a-49f0-8be2-d7bf8def8454)
 
 ### Palapelinäkymä
 ![image](https://github.com/user-attachments/assets/488a257a-61fe-4263-9dd5-074bd14d983c)
 
 ### Kuvagalleria
-
 ![image](https://github.com/user-attachments/assets/8555a9e8-5d4e-4e65-a641-174b5ae290d3)
 
 ## Tietokanta
